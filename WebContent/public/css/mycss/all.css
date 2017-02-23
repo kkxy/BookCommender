@@ -1,0 +1,14 @@
+/*主页下方*/
+.index-down{
+	margin-top: 100px;	
+}
+
+/*书列表下方*/
+.booklist-bottom{
+	margin-top: 50px;
+	margin-bottom: 20px;
+	margin-left: 20px;
+	background-color: #0275D8;
+	height: 30px;
+}
+

@@ -1,0 +1,47 @@
+<!--
+  ~ Hibernate, Relational Persistence for Idiomatic Java
+  ~
+  ~ License: GNU Lesser General Public License (LGPL), version 2.1 or later.
+  ~ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
+  -->
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!-- mysql数据库配置 -->
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/bookcommender?useUnicode=true&amp;characterEncoding=UTF-8</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password"></property>
+		<!-- 连接池最大连接数 -->
+		<property name="hibernate.c3p0.max_size">30</property>
+		<!-- 连接池最小连接数 -->
+		<property name="hibernate.c3p0.min_size">1</property>
+		<!-- 连接池连接超时时长 -->
+		<property name="hibernate.c3p0.timeout">5000</property>
+		<!-- 连接池最大缓冲多少个statement对象 -->
+		<property name="hibernate.c3p0.max_statements">100</property>
+		<property name="hibernate.c3p0.idle_test_period">3000</property>
+		<property name="hibernate.c3p0.acquire_increment">2</property>
+		<property name="hibernate.c3p0.validate">true</property>
+		<!-- 数据库方言 -->
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<!-- 自动建表 -->
+		<property name="hbm2ddl.auto">update</property>
+		<!-- 控制台输出sql -->
+		<property name="show_sql">false</property>
+		<!-- 格式化sql -->
+		<property name="hibernate.format_sql">true</property>
+		<!-- 持久化类 -->
+		<mapping class="com.ccnu.xy.model.Dict"/>
+		<mapping class="com.ccnu.xy.model.User"/>
+		<mapping class="com.ccnu.xy.model.Book"/>
+		<mapping class="com.ccnu.xy.model.BookStat"/>
+
+		<!-- 支持缓存的类 -->
+		<!-- <class-cache usage="read-write"
+			class="cn.it.shop.model.Product" /> -->
+	</session-factory>
+</hibernate-configuration>
