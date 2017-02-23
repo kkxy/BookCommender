@@ -26,8 +26,8 @@ public class DictDao {
 	public void delete(Session session, int id) {
 		session.beginTransaction();
 		
-		String hql = "delete Dict d where d.id=?";
-		session.createQuery(hql).setParameter(0, id);
+		String hql = "delete Dict d where d.id=:id";
+		session.createQuery(hql).setParameter("id", id);
 		
 		session.getTransaction().commit();
 	}
@@ -35,8 +35,8 @@ public class DictDao {
 	public List<Dict> getByItemId(Session session, int id) {
 		session.beginTransaction();
 		
-		String hql = "from Dict d where d.itemid=?";
-		List<Dict> res = session.createQuery(hql).setParameter(0, id).list();
+		String hql = "from Dict d where d.itemid=:itemid";
+		List<Dict> res = session.createQuery(hql).setParameter("itemid", id).list();
 		
 		session.getTransaction().commit();
 		
@@ -46,8 +46,8 @@ public class DictDao {
 	public List<Dict> getByTypeId(Session session, int id) {
 		session.beginTransaction();
 		
-		String hql = "from Dict d where d.typeid=?";
-		List<Dict> res = session.createQuery(hql).setParameter(0, id).list();
+		String hql = "from Dict d where d.typeid=:typeid";
+		List<Dict> res = session.createQuery(hql).setParameter("typeid", id).list();
 		
 		session.getTransaction().commit();
 		

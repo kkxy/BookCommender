@@ -19,6 +19,7 @@ public class User {
 	private String loginname;	// 登录名
 	private String password;	// 密码
 	private String email;		// 邮箱
+	private String college;		// 学院
 	
 	@ManyToMany(mappedBy="userlist")
 	private List<Book> booklist = new ArrayList<>();
@@ -53,6 +54,14 @@ public class User {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getCollege() {
+		return college;
+	}
+
+	public void setCollege(String college) {
+		this.college = college;
 	}
 
 	public List<Book> getBooklist() {

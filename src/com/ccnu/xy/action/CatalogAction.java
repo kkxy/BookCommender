@@ -9,7 +9,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class CatalogAction extends ActionSupport {
 	public String getCatalog() throws Exception {
-		SessionFactory sf = new Configuration().buildSessionFactory();
+		SessionFactory sf = new Configuration().configure().buildSessionFactory();
 		Session session = sf.openSession();
 		ActionContext act = ActionContext.getContext();
 		

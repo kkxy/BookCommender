@@ -12,10 +12,10 @@
 <link rel="stylesheet" type="text/css" href="public/css/all.css" />
 </head>
 <body>
-	<div class="continer">
+	<div class="container">
 		<div class="row">
-			<s:action name="sidebar_topframe"></s:action>
-			<img src="public/img/library.jpg" />
+			<s:action name="sidebar_topframe" executeResult="true"></s:action>
+			<img src="public/img/library.jpg" class="img-responsive" alt="library"/>
 		</div>
 		<div class="row">
 			<!-- 左侧导航栏 -->
@@ -31,7 +31,7 @@
 			</div>
 			
 			<!-- 主内容 -->
-			<div class="col-md-9">
+			<div class="col-md-8">
 				<div class="row">
 					<form action="search" method="post" role="form" class="form" id="searchform">
 						<div class="form-group">
@@ -53,24 +53,23 @@
 						</div>	
 					</form>
 				</div>
+				<hr>
 				
-				<div class="index-down">
-					<p class="lead">这是大家都在读的书</p>
-					<div class="row">
-						<c:forEach items="${booklist}" var="bl" varStatus="st">
-							<div class="col-md-3">
-								<div class="thumbnail">
-								    <img src="public/img/${bl.head}" alt="${bl.head}">
-								    <div class="caption">
-									    <h5>${bl.bookname}</h5>
-										    <p>作者：${bl.author}</p>
-									    <a href="wishcart?bookid=${bl.id}" class="btn btn-primary" role="button">加入心愿单</a>
-									    <a href="bookdetail?bookid=${bl.id}" class="btn btn-primary" role="button">详情</a>
-								    </div>
-								</div>
+				<p class="lead">这是大家都在读的书</p>
+				<div class="row">
+					<c:forEach items="${booklist}" var="bl" varStatus="st">
+						<div class="col-md-3">
+							<div class="thumbnail">
+							    <img src="public/img/${bl.head}" alt="${bl.head}">
+							    <div class="caption">
+								    <h5>${bl.bookname}</h5>
+									    <p>作者：${bl.author}</p>
+								    <a href="wishcart?bookid=${bl.id}" class="btn btn-primary" role="button">加入心愿单</a>
+								    <a href="bookdetail?bookid=${bl.id}" class="btn btn-primary" role="button">详情</a>
+							    </div>
 							</div>
-						</c:forEach>
-					</div>
+						</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>

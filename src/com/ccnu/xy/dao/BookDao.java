@@ -24,8 +24,8 @@ public class BookDao {
 	public void delete(Session session, int id) {
 		session.beginTransaction();
 		
-		String hql = "delete Book b where b.id=?";
-		session.createQuery(hql).setParameter(0, id);
+		String hql = "delete Book b where b.id=:id";
+		session.createQuery(hql).setParameter("id", id);
 		
 		session.getTransaction().commit();
 	}

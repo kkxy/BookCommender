@@ -1,5 +1,6 @@
 package com.ccnu.xy.action;
 
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -21,7 +22,7 @@ public class UserAction extends ActionSupport {
 	}
 
 	public String login() throws Exception {
-		SessionFactory sf = new Configuration().buildSessionFactory();
+		SessionFactory sf = new Configuration().configure().buildSessionFactory();
 		Session session = sf.openSession();
 		
 		ActionContext act = ActionContext.getContext();
@@ -42,12 +43,14 @@ public class UserAction extends ActionSupport {
 	}
 	
 	public String register() throws Exception {
-		SessionFactory sf = new Configuration().buildSessionFactory();
+		SessionFactory sf = new Configuration().configure().buildSessionFactory();
 		Session session = sf.openSession();
 		
 		UserDao ud = new UserDao();
 		
 		if (ud.checkLoginname(session, getUser().getLoginname())) {
+			System.out.println("save success");
+			ud.save(session, getUser());
 			
 			session.close();
 			sf.close();

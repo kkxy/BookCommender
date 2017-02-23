@@ -30,7 +30,7 @@
 		      	<c:choose>
 		      		<c:when test="${! empty user}">
 			     		<ul class="nav navbar-nav navbar-right">
-			        		<li><a href="usercenter"><button type="button" class="btn btn-primary btn-md">${user.name}</button></a></li>
+			        		<li><a href="usercenter"><button type="button" class="btn btn-primary btn-md">${user.loginname}</button></a></li>
 			        		<li><a href="logout"><button type="button" class="btn btn-primary btn-md">登出</button></a></li>
 			        		<!-- <li><a href="wishcart"><button type="button" class="btn btn-primary btn-md">心愿单</button></a></li> -->
 						</ul>
@@ -115,6 +115,20 @@
                 			<input type="password" class="form-control" placeholder="确认密码" aria-describedby="basic-addon3">
               			</div>
              			<br>
+             			<div class="input-group col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+                			<span class="input-group-addon" id="basic-addon4">
+                  				<span class="glyphicon glyphicon-envelope"></span>
+                			</span>
+               			 	<input type="email" name="user.email" class="form-control" placeholder="邮箱" aria-describedby="basic-addon4">
+              			</div>
+              			<br>
+              			<div class="input-group col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+                			<span class="input-group-addon" id="basic-addon5">
+                  				<span class="glyphicon glyphicon-home"></span>
+                			</span>
+               			 	<input type="text" name="user.college" class="form-control" placeholder="学院" aria-describedby="basic-addon5">
+              			</div>
+              			<br>
               			<div class="modal-footer">
                   			<div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
                     			<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

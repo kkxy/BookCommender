@@ -16,27 +16,27 @@
 		<action name="login" class="com.ccnu.xy.action.UserAction" method="login">
 			<result name="error">/WEB-INF/content/error.jsp</result>
 			<result type="redirectAction">
-				<param name="actionName">index</param>
+				<param name="actionName">index.action</param>
 			</result>
 		</action>
 		<action name="register" class="com.ccnu.xy.action.UserAction" method="register">
 			<result name="error">/WEB-INF/content/error.jsp</result>
 			<result type="redirectAction">
-				<param name="actionName">index</param>
+				<param name="actionName">index.action</param>
 			</result>
 		</action>
 		<action name="logout" class="com.ccnu.xy.action.UserAction" method="logout">
 			<result name="error">/WEB-INF/content/error.jsp</result>
 			<result type="redirectAction">
-				<param name="actionName">index</param>
+				<param name="actionName">index.action</param>
 			</result>
 		</action>
 		
 		
-		<action name="user_center" class="com.ccnu.xy.action.UserAction" method="user_center">
+		<!-- <action name="user_center" class="com.ccnu.xy.action.UserAction" method="user_center">
 			<result>/WEB_INF/content/user/user_center.jsp</result>
 		</action>
-		<!-- 书本动作 -->
+		书本动作
 		<action name="bookclass" class="com.ccnu.xy.action.BookAction" method="bookclass">
 			<result name="error"></result>
 			<result>/WEB-INF/content/bookclass.jsp</result>
@@ -60,9 +60,9 @@
 		<action name="wishcart" class="com.ccnu.xy.CartAction" method="wishcart">
 			<result name="error"></result>
 			<result>/WEB_INF/content/wishcart.jsp</result>
-		</action>
+		</action> -->
 		<action name="sidebar_*">
-			<result>/WEB-INF/content/{1}.jsp</result>
+			<result>/WEB-INF/content/sidebar/{1}.jsp</result>
 		</action>
 	</package>
 	

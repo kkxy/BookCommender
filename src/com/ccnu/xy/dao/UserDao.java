@@ -10,9 +10,9 @@ public class UserDao {
 		session.beginTransaction();
 		
 		boolean pass = false;
-		String hql = "from User u where u.loginname=? and u.password=?";
-		Query q = session.createQuery(hql).setParameter(0, loginname).setParameter(1, password);
-		if (q != null)
+		String hql = "from User u where u.loginname=:loginname and u.password=:password";
+		Query q = session.createQuery(hql).setParameter("loginname", loginname).setParameter("password", password);
+		if (q.list().size() != 0)
 			pass = true;
 		
 		session.getTransaction().commit();
@@ -23,9 +23,9 @@ public class UserDao {
 		session.beginTransaction();
 		
 		boolean pass = true;
-		String hql = "from User u where u.loginname=?";
-		Query q = session.createQuery(hql).setParameter(0, loginname);
-		if (q != null)
+		String hql = "from User u where u.loginname=:loginname";
+		Query q = session.createQuery(hql).setParameter("loginname", loginname);
+		if (q.list().size() != 0)
 			pass = false;
 		
 		session.getTransaction().commit();
@@ -51,8 +51,8 @@ public class UserDao {
 	public void delete(Session session, int id) {
 		session.beginTransaction();
 		
-		String hql = "delete User u where u.id=?";
-		session.createQuery(hql).setParameter(0, id);
+		String hql = "delete User u where u.id=:id";
+		session.createQuery(hql).setParameter("id", id);
 		
 		session.getTransaction().commit();
 	}
@@ -60,8 +60,8 @@ public class UserDao {
 	public User getByLoginname(Session session, String loginname) {
 		session.beginTransaction();
 		
-		String hql = "from User u where u.loginname=?";
-		User u = (User)session.createQuery(hql).setParameter(0, loginname);
+		String hql = "from User u where u.loginname=:loginname";
+		User u = (User)session.createQuery(hql).setParameter("loginname", loginname).uniqueResult();
 		u.setPassword("");
 		
 		session.getTransaction().commit();
