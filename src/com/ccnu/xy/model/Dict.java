@@ -9,10 +9,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name="t_dict")
 public class Dict {
-	private int itemid;			// 低级id
 	private int typeid;			// 高级id
-	private String typename;	// 低级名称
-	private String itemname;	// 高级名称
+	private int itemid;			// 低级id
+	private String typename;	// 高级名称
+	private String itemname;	// 低级名称
 	
 	public int getTypeid() {
 		return typeid;

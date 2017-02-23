@@ -1,13 +1,15 @@
 package com.ccnu.xy.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,14 +23,15 @@ public class Book {
 	private String press;		// 出版社
 	private String place;		// 地点
 	private String head;		// 图片
-
-	@ManyToOne
-	@JoinColumn(name="userid")	
-	private User user;
+	private int ctype;		// 类别
 	
-	@OneToOne
-	@PrimaryKeyJoinColumn
-	private BookStat bookStat;
+	@ManyToMany
+	@JoinTable(
+			name="t_order",
+			joinColumns={@JoinColumn(columnDefinition="bookid")},
+			inverseJoinColumns={@JoinColumn(columnDefinition="userid")}
+			)
+	private List<User> userlist = new ArrayList<>();
 	
 	public int getId() {
 		return id;
@@ -78,19 +81,19 @@ public class Book {
 		this.head = head;
 	}
 
-	public User getUser() {
-		return user;
+	public int getCtype() {
+		return ctype;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setCtype(int ctype) {
+		this.ctype = ctype;
 	}
 
-	public BookStat getBookStat() {
-		return bookStat;
+	public List<User> getUserlist() {
+		return userlist;
 	}
 
-	public void setBookStat(BookStat bookStat) {
-		this.bookStat = bookStat;
+	public void setUserlist(List<User> userlist) {
+		this.userlist = userlist;
 	}
 }

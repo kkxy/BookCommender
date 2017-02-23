@@ -8,25 +8,31 @@
 	<constant name="struts.i18n.encoding" value="utf-8"/>
 	
 	<package name="default" extends="struts-default">
+		<!-- 首页 -->
+		<action name="index" class="com.ccnu.xy.action.MainAction" method="getIndex">
+			<result>/WEB-INF/content/index.jsp</result>
+		</action>
 		<!-- 用户动作 -->
 		<action name="login" class="com.ccnu.xy.action.UserAction" method="login">
 			<result name="error">/WEB-INF/content/error.jsp</result>
 			<result type="redirectAction">
-				<param name="actionName">main_search</param>
+				<param name="actionName">index</param>
 			</result>
 		</action>
 		<action name="register" class="com.ccnu.xy.action.UserAction" method="register">
 			<result name="error">/WEB-INF/content/error.jsp</result>
 			<result type="redirectAction">
-				<param name="actionName">main_search</param>
+				<param name="actionName">index</param>
 			</result>
 		</action>
 		<action name="logout" class="com.ccnu.xy.action.UserAction" method="logout">
 			<result name="error">/WEB-INF/content/error.jsp</result>
 			<result type="redirectAction">
-				<param name="actionName">main_search</param>
+				<param name="actionName">index</param>
 			</result>
 		</action>
+		
+		
 		<action name="user_center" class="com.ccnu.xy.action.UserAction" method="user_center">
 			<result>/WEB_INF/content/user/user_center.jsp</result>
 		</action>
@@ -55,7 +61,9 @@
 			<result name="error"></result>
 			<result>/WEB_INF/content/wishcart.jsp</result>
 		</action>
-		
+		<action name="sidebar_*">
+			<result>/WEB-INF/content/{1}.jsp</result>
+		</action>
 	</package>
 	
 </struts>
