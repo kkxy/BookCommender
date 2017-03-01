@@ -32,11 +32,20 @@ public class DictDao {
 		session.getTransaction().commit();
 	}
 	
-	public List<Dict> getByItemId(Session session, int id) {
+	public List<Dict> getAll(Session session) {
 		session.beginTransaction();
 		
-		String hql = "from Dict d where d.itemid=:itemid";
-		List<Dict> res = session.createQuery(hql).setParameter("itemid", id).list();
+		String hql = "from Dict d";
+		List<Dict> res = session.createQuery(hql).list();
+		
+		session.getTransaction().commit();
+		return res;
+	}
+	
+	public Dict getByItemId(Session session, int id) {
+		session.beginTransaction();
+		
+		Dict res = session.get(Dict.class, id);
 		
 		session.getTransaction().commit();
 		

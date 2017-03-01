@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -23,7 +25,9 @@ public class Book {
 	private String press;		// 出版社
 	private String place;		// 地点
 	private String head;		// 图片
-	private int ctype;		// 类别
+	private int atype;			// 类别a
+	private int btype;			// 类别b
+	private int ctype;			// 类别c
 	
 	@ManyToMany
 	@JoinTable(
@@ -32,6 +36,10 @@ public class Book {
 			inverseJoinColumns={@JoinColumn(columnDefinition="userid")}
 			)
 	private List<User> userlist = new ArrayList<>();
+	
+	@OneToOne
+	@PrimaryKeyJoinColumn
+	private BookStat bookStat;
 	
 	public int getId() {
 		return id;
@@ -79,6 +87,30 @@ public class Book {
 	
 	public void setHead(String head) {
 		this.head = head;
+	}
+
+	public int getAtype() {
+		return atype;
+	}
+
+	public void setAtype(int atype) {
+		this.atype = atype;
+	}
+
+	public int getBtype() {
+		return btype;
+	}
+
+	public void setBtype(int btype) {
+		this.btype = btype;
+	}
+
+	public BookStat getBookStat() {
+		return bookStat;
+	}
+
+	public void setBookStat(BookStat bookStat) {
+		this.bookStat = bookStat;
 	}
 
 	public int getCtype() {

@@ -11,8 +11,7 @@ import javax.persistence.Table;
 public class Dict {
 	private int typeid;			// 高级id
 	private int itemid;			// 低级id
-	private String typename;	// 高级名称
-	private String itemname;	// 低级名称
+	private String name;		// 低级名称
 	
 	public int getTypeid() {
 		return typeid;
@@ -31,21 +30,14 @@ public class Dict {
 	public void setItemid(int itemid) {
 		this.itemid = itemid;
 	}
-	
-	public String getTypename() {
-		return typename;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
-	public void setTypename(String typename) {
-		this.typename = typename;
-	}
-	
-	public String getItemname() {
-		return itemname;
-	}
-	
-	public void setItemname(String itemname) {
-		this.itemname = itemname;
-	}
 }
 

@@ -21,12 +21,14 @@
 			<!-- 左侧导航栏 -->
 			<div class="col-md-3">
 				<c:forEach items="${bigclass}" var="bc" varStatus="st">
-					<p class="lead"><strong>${bc.typename}</strong></p>
-					<ol class="breadcrumb">
-						<c:forEach begin="${bc.typeid}" end="${bc.itemid}" step="1" var="x">
-							<li><a href="booklist?classtype=bc">${smallclass[x]}</a></li>
-						</c:forEach>
-					</ol> 
+					<p class="lead"><strong>${bc.name}</strong></p>
+					<c:if test="${! empty smallclass}">
+						<ol class="breadcrumb">
+							<c:forEach begin="${count[st.index]}" end="${count[st.index + 1] - 1}" step="1" var="x">
+								<li><a href="index?typeid=${smallclass[x].itemid}&classtype=bc">${smallclass[x].name}</a></li>
+							</c:forEach>
+						</ol> 
+					</c:if>
 				</c:forEach>
 			</div>
 			

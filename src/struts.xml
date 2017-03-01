@@ -8,10 +8,16 @@
 	<constant name="struts.i18n.encoding" value="utf-8"/>
 	
 	<package name="default" extends="struts-default">
+		<action name="sidebar_*">
+			<result>/WEB-INF/content/sidebar/{1}.jsp</result>
+		</action>
 		<!-- 首页 -->
 		<action name="index" class="com.ccnu.xy.action.MainAction" method="getIndex">
 			<result>/WEB-INF/content/index.jsp</result>
 		</action>
+	</package>
+	
+	<package name="user" extends="struts-default">
 		<!-- 用户动作 -->
 		<action name="login" class="com.ccnu.xy.action.UserAction" method="login">
 			<result name="error">/WEB-INF/content/error.jsp</result>
@@ -31,7 +37,31 @@
 				<param name="actionName">index.action</param>
 			</result>
 		</action>
-		
+	</package>
+	
+	<package name="extra" extends="struts-default,json-default">
+		<action name="getuploadclass" class="com.ccnu.xy.action.ExtraAction" method="getUploadClass">
+			<result>/WEB-INF/content/extra/uploadclass.jsp</result>
+		</action>
+		<action name="uploadclass" class="com.ccnu.xy.action.ExtraAction" method="uploadClass">
+			<result type="redirectAction">
+				<param name="actionName">getuploadclass</param>
+			</result>
+		</action>
+		<action name="getuploadbook" class="com.ccnu.xy.action.ExtraAction" method="getUploadBook">
+			<result>/WEB-INF/content/extra/uploadbook.jsp</result>
+		</action>
+		<action name="getselectclass" class="com.ccnu.xy.action.ExtraAction" method="getSelectClass">
+			<result type="json">
+				<param name="root">resJson</param>
+			</result>
+		</action>
+		<action name="uploadbook" class="com.ccnu.xy.action.ExtraAction" method="uploadBook">
+			<result type="redirectAction">
+				<param name="actionName">getuploadbook</param>
+			</result>
+		</action>
+	</package>
 		
 		<!-- <action name="user_center" class="com.ccnu.xy.action.UserAction" method="user_center">
 			<result>/WEB_INF/content/user/user_center.jsp</result>
@@ -61,9 +91,5 @@
 			<result name="error"></result>
 			<result>/WEB_INF/content/wishcart.jsp</result>
 		</action> -->
-		<action name="sidebar_*">
-			<result>/WEB-INF/content/sidebar/{1}.jsp</result>
-		</action>
-	</package>
 	
 </struts>
