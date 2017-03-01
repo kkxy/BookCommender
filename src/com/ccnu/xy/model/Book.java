@@ -3,6 +3,7 @@ package com.ccnu.xy.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,9 +38,9 @@ public class Book {
 			)
 	private List<User> userlist = new ArrayList<>();
 	
-	@OneToOne
+	@OneToOne(targetEntity=BookStat.class, cascade={CascadeType.ALL})
 	@PrimaryKeyJoinColumn
-	private BookStat bookStat;
+	private BookStat bookstat;
 	
 	public int getId() {
 		return id;
@@ -105,20 +106,20 @@ public class Book {
 		this.btype = btype;
 	}
 
-	public BookStat getBookStat() {
-		return bookStat;
-	}
-
-	public void setBookStat(BookStat bookStat) {
-		this.bookStat = bookStat;
-	}
-
 	public int getCtype() {
 		return ctype;
 	}
 
 	public void setCtype(int ctype) {
 		this.ctype = ctype;
+	}
+
+	public BookStat getBookStat() {
+		return bookstat;
+	}
+	
+	public void setBookStat(BookStat bookstat) {
+		this.bookstat = bookstat;
 	}
 
 	public List<User> getUserlist() {

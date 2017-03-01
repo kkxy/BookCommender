@@ -25,7 +25,7 @@
 					<c:if test="${! empty smallclass}">
 						<ol class="breadcrumb">
 							<c:forEach begin="${count[st.index]}" end="${count[st.index + 1] - 1}" step="1" var="x">
-								<li><a href="index?typeid=${smallclass[x].itemid}&classtype=bc">${smallclass[x].name}</a></li>
+								<li><a href="index?typeid=${smallclass[x].itemid}&classtype=${nexttype}">${smallclass[x].name}</a></li>
 							</c:forEach>
 						</ol> 
 					</c:if>

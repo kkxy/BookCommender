@@ -83,7 +83,11 @@ public class ExtraAction extends ActionSupport {
 		
 		List<Dict> aclasslist = dd.getByTypeId(session, 1);
 		List<Dict> bclasslist = new ArrayList<Dict>();
+		if (aclasslist.size() != 0)
+			bclasslist = dd.getByTypeId(session, aclasslist.get(0).getItemid());
 		List<Dict> cclasslist = new ArrayList<Dict>();
+		if (bclasslist.size() != 0)
+			cclasslist = dd.getByTypeId(session, bclasslist.get(0).getItemid());
 		
 		act.put("aclasslist", aclasslist);
 		act.put("bclasslist", bclasslist);

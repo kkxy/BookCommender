@@ -24,7 +24,7 @@ function changeClass(type, changetype) {
 					var classlist = data.classlist;
 					for (var i = 0; i < classlist.length; i++) {
 						var child = document.createElement("option");
-						var text = document.createTextNode(classlist[i]);
+						var text = document.createTextNode(classlist[i].name);
 						child.value = classlist[i].itemid;
 						child.nodeValue = classlist[i].name;
 						child.appendChild(text);

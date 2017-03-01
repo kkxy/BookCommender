@@ -1,14 +1,24 @@
 package com.ccnu.xy.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 
 import com.ccnu.xy.model.Book;
+import com.ccnu.xy.model.BookStat;
 
 public class BookDao {
 	public void save(Session session, Book b) {
 		session.beginTransaction();
 		
+		BookStat bs = new BookStat();
+		bs.setCount(0);
+		
+		bs.setBook(b);
+		b.setBookStat(bs);
+		
 		session.save(b);
+		session.save(bs);
 		
 		session.getTransaction().commit();
 	}
@@ -37,5 +47,26 @@ public class BookDao {
 		
 		session.getTransaction().commit();
 		return b;
+	}
+	
+
+	public List<Book> getAll(Session session) {
+		session.beginTransaction();
+		
+		String hql = "from Book bs";
+		List<Book> bslist = session.createQuery(hql).list();
+		
+		session.getTransaction().commit();
+		return bslist;
+	}
+	
+	public List<Book> getByTypeId(Session session, String type, int id) {
+		session.beginTransaction();
+		
+		String hql = "from Book bs where bs.book." + type + "type=:id";
+		List<Book> res = session.createQuery(hql).setParameter("id", id).list();
+		
+		session.getTransaction().commit();
+		return res;
 	}
 }
