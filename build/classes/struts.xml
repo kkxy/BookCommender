@@ -62,7 +62,17 @@
 			</result>
 		</action>
 	</package>
-		
+	
+	<package name="book" extends="struts-default,json-default">
+		<action name="bookdetail" class="com.ccnu.xy.action.BookAction" method="getBookDetail">
+			<result>/WEB-INF/content/book/bookdetail.jsp</result>
+		</action>
+		<action name="wishcart" class="com.ccnu.xy.action.CartAction" method="putWishCart">
+			<result type="json">
+				<param name="root">resJson</param>
+			</result>
+		</action>
+	</package>
 		<!-- <action name="user_center" class="com.ccnu.xy.action.UserAction" method="user_center">
 			<result>/WEB_INF/content/user/user_center.jsp</result>
 		</action>

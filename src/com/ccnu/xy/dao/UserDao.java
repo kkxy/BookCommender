@@ -62,7 +62,6 @@ public class UserDao {
 		
 		String hql = "from User u where u.loginname=:loginname";
 		User u = (User)session.createQuery(hql).setParameter("loginname", loginname).uniqueResult();
-		u.setPassword("");
 		
 		session.getTransaction().commit();
 		return u;

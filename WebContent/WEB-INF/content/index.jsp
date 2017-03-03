@@ -34,6 +34,7 @@
 			
 			<!-- 主内容 -->
 			<div class="col-md-8">
+				<!-- 搜索框 -->
 				<div class="row">
 					<form action="search" method="post" role="form" class="form" id="searchform">
 						<div class="form-group">
@@ -57,16 +58,26 @@
 				</div>
 				<hr>
 				
+				<!-- 书籍列表 -->
 				<p class="lead">这是大家都在读的书</p>
 				<div class="row">
 					<c:forEach items="${booklist}" var="bl" varStatus="st">
 						<div class="col-md-3">
 							<div class="thumbnail">
-							    <img src="public/img/${bl.head}" alt="${bl.head}">
+							    <%-- <img src="public/img/${bl.head}" alt="${bl.head}"> --%>
 							    <div class="caption">
 								    <h5>${bl.bookname}</h5>
 									    <p>作者：${bl.author}</p>
-								    <a href="wishcart?bookid=${bl.id}" class="btn btn-primary" role="button">加入心愿单</a>
+									<c:if test="${! empty user}">
+										<c:choose>
+											<c:when test="${order[st.index] == 0}">
+											    <button type="button" class="btn btn-primary" onclick="putwishcart(${bl.id})">加入心愿单</button>
+											</c:when>
+											<c:otherwise>
+												<button type="button" class="btn btn-primary" disabled="disabled">已加入心愿单</button>
+											</c:otherwise>
+										</c:choose>
+									</c:if>
 								    <a href="bookdetail?bookid=${bl.id}" class="btn btn-primary" role="button">详情</a>
 							    </div>
 							</div>

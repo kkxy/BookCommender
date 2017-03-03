@@ -15,6 +15,7 @@ import com.ccnu.xy.dao.DictDao;
 import com.ccnu.xy.model.Book;
 import com.ccnu.xy.model.BookStat;
 import com.ccnu.xy.model.Dict;
+import com.ccnu.xy.model.User;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -26,11 +27,13 @@ public class MainAction extends ActionSupport {
 		
 		String classtype = ServletActionContext.getRequest().getParameter("classtype");
 		String typeid = ServletActionContext.getRequest().getParameter("typeid");
+		User user = (User)act.getSession().get("user");
 		
 		List<Dict> aClass = new ArrayList<>();
 		List<Dict> bClass = new ArrayList<>();
 		ArrayList<Integer> count = new ArrayList<>();
 		ArrayList<Book> booklist = new ArrayList<>();
+		ArrayList<Integer> order = new ArrayList<>();
 		
 		DictDao dd = new DictDao();
 		BookDao bd = new BookDao();
@@ -108,6 +111,21 @@ public class MainAction extends ActionSupport {
 			act.put("booklist", booklist);
 		}
 		
+		if (user != null) {
+			List<Book> buylist = user.getBooklist();
+			for (int i = 0; i < booklist.size(); i++) {
+				int bid = booklist.get(i).getId();
+				Integer buy = 0;
+				for (int j = 0; j < buylist.size(); j++) {
+					if (buylist.get(j).getId() == bid) {
+						buy = 1;
+						break;
+					}
+				}
+				order.add(buy);
+			}
+			act.put("order", order);
+		}
 		
 		session.close();
 		sf.close();

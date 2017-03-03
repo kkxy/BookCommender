@@ -34,3 +34,20 @@ function changeClass(type, changetype) {
 				}
 	})
 }
+
+function putwishcart(id) {
+	$.ajax({
+		type: 'POST',
+		url: 'wishcart',
+		data: {
+			bookid: id
+		},
+		dataType: 'json',
+		success: function(data) {
+			if (data.type == 'success')
+				alert('加入成功');
+			else
+				alert('加入失败')
+		}
+	})
+}

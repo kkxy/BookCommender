@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +22,7 @@ public class User {
 	private String email;		// 邮箱
 	private String college;		// 学院
 	
-	@ManyToMany(mappedBy="userlist")
+	@ManyToMany(fetch=FetchType.EAGER, mappedBy="userlist")
 	private List<Book> booklist = new ArrayList<>();
 	
 	public int getId() {
