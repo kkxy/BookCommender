@@ -8,6 +8,9 @@
 	<constant name="struts.i18n.encoding" value="utf-8"/>
 	
 	<package name="default" extends="struts-default">
+		<action name="sidebar_leftframe" class="com.ccnu.xy.action.CatalogAction" method="getCatalog">
+			<result>/WEB-INF/content/sidebar/leftframe.jsp</result>
+		</action>
 		<action name="sidebar_*">
 			<result>/WEB-INF/content/sidebar/{1}.jsp</result>
 		</action>
@@ -72,8 +75,12 @@
 				<param name="root">resJson</param>
 			</result>
 		</action>
+		<action name="search" class="com.ccnu.xy.action.BookAction" method="searchBook">
+			<result>/WEB-INF/content/index.jsp</result>
+		</action>
 	</package>
-		<!-- <action name="user_center" class="com.ccnu.xy.action.UserAction" method="user_center">
+		<!-- 
+		<action name="user_center" class="com.ccnu.xy.action.UserAction" method="user_center">
 			<result>/WEB_INF/content/user/user_center.jsp</result>
 		</action>
 		书本动作
@@ -89,17 +96,10 @@
 			<result name="error"></result>
 			<result>/WEB_INF/content/lend.jsp</result>
 		</action>
-		<action name="bookdetail" class="com.ccnu.xy.BookAction" method="bookdetail">
-			<result name="error"></result>
-			<result>/WEB_INF/content/bookdetail.jsp</result>
-		</action>
 		<action name="cart" class="com.ccnu.xy.CartAction" method="cart">
 			<result name="error"></result>
 			<result>/WEB_INF/content/cart.jsp</result>
 		</action>
-		<action name="wishcart" class="com.ccnu.xy.CartAction" method="wishcart">
-			<result name="error"></result>
-			<result>/WEB_INF/content/wishcart.jsp</result>
-		</action> -->
+		-->
 	
 </struts>

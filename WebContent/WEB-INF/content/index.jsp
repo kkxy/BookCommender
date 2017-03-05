@@ -20,16 +20,7 @@
 		<div class="row">
 			<!-- 左侧导航栏 -->
 			<div class="col-md-3">
-				<c:forEach items="${bigclass}" var="bc" varStatus="st">
-					<p class="lead"><strong>${bc.name}</strong></p>
-					<c:if test="${! empty smallclass}">
-						<ol class="breadcrumb">
-							<c:forEach begin="${count[st.index]}" end="${count[st.index + 1] - 1}" step="1" var="x">
-								<li><a href="index?typeid=${smallclass[x].itemid}&classtype=${nexttype}">${smallclass[x].name}</a></li>
-							</c:forEach>
-						</ol> 
-					</c:if>
-				</c:forEach>
+				<s:action name="sidebar_leftframe" executeResult="true"></s:action>
 			</div>
 			
 			<!-- 主内容 -->
@@ -48,8 +39,8 @@
 								      <span class="caret"></span>
 								    </button>
 								    <ul class="dropdown-menu">
-								      <li><button type="submit" class="btn btn-primary" onclick="changeAction('searchform', 'search?seachtype=book')">搜书名</button></li>
-								      <li><button type="submit" class="btn btn-primary" onclick="changeAction('searchform', 'search?seachtype=author')">搜作者</button></li>
+								      <li><button type="submit" class="btn btn-primary" onclick="changeAction('searchform', 'search?searchtype=book')">搜书名</button></li>
+								      <li><button type="submit" class="btn btn-primary" onclick="changeAction('searchform', 'search?searchtype=author')">搜作者</button></li>
 								    </ul>
 								  </div>
 							</div>
@@ -59,30 +50,37 @@
 				<hr>
 				
 				<!-- 书籍列表 -->
-				<p class="lead">这是大家都在读的书</p>
+				<!-- <p class="lead">这是大家都在读的书</p> -->
 				<div class="row">
-					<c:forEach items="${booklist}" var="bl" varStatus="st">
-						<div class="col-md-3">
-							<div class="thumbnail">
-							    <%-- <img src="public/img/${bl.head}" alt="${bl.head}"> --%>
-							    <div class="caption">
-								    <h5>${bl.bookname}</h5>
-									    <p>作者：${bl.author}</p>
-									<c:if test="${! empty user}">
-										<c:choose>
-											<c:when test="${order[st.index] == 0}">
-											    <button type="button" class="btn btn-primary" onclick="putwishcart(${bl.id})">加入心愿单</button>
-											</c:when>
-											<c:otherwise>
-												<button type="button" class="btn btn-primary" disabled="disabled">已加入心愿单</button>
-											</c:otherwise>
-										</c:choose>
-									</c:if>
-								    <a href="bookdetail?bookid=${bl.id}" class="btn btn-primary" role="button">详情</a>
-							    </div>
-							</div>
-						</div>
-					</c:forEach>
+					<c:choose>
+						<c:when test="${! empty booklist}">
+							<c:forEach items="${booklist}" var="bl" varStatus="st">
+								<div class="col-md-3">
+									<div class="thumbnail">
+									    <%-- <img src="public/img/${bl.head}" alt="${bl.head}"> --%>
+									    <div class="caption">
+										    <h5>${bl.bookname}</h5>
+											    <p>作者：${bl.author}</p>
+											<c:if test="${! empty user}">
+												<c:choose>
+													<c:when test="${order[st.index] == 0}">
+													    <button type="button" class="btn btn-primary" onclick="putwishcart(${bl.id})">加入心愿单</button>
+													</c:when>
+													<c:otherwise>
+														<button type="button" class="btn btn-primary" disabled="disabled">已加入心愿单</button>
+													</c:otherwise>
+												</c:choose>
+											</c:if>
+										    <a href="bookdetail?bookid=${bl.id}" class="btn btn-primary" role="button">详情</a>
+									    </div>
+									</div>
+								</div>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<p class="lead">没有书籍</p>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</div>

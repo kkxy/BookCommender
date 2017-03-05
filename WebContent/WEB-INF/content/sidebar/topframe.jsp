@@ -25,7 +25,7 @@
 	  		</div>
 		    <div class="collapse navbar-collapse" id="bs-example">
 		      	<ul class="nav navbar-nav">
-		        	<li><a href="#">首页</a></li>
+		        	<li><a href="index">首页</a></li>
 		      	</ul>
 		      	<c:choose>
 		      		<c:when test="${! empty user}">

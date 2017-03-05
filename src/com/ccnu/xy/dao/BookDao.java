@@ -49,7 +49,17 @@ public class BookDao {
 		return b;
 	}
 	
-
+	
+	public List<Book> getByName(Session session, String type, String name) {
+		session.beginTransaction();
+		
+		String hql = "from Book b where b." + type + " like '" + name + "'";
+		List<Book> res = session.createQuery(hql).list();
+		
+		session.getTransaction().commit();
+		return res;
+	}
+	
 	public List<Book> getAll(Session session) {
 		session.beginTransaction();
 		
