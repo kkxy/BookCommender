@@ -44,10 +44,15 @@ function putwishcart(id) {
 		},
 		dataType: 'json',
 		success: function(data) {
-			if (data.type == 'success')
+			if (data.result == 'success') {
+				var btn = document.getElementById("buybtn_" + data.id);
+				btn.disabled="disabled";
+				btn.innerHTML="已加入心愿单";
 				alert('加入成功');
-			else
+			}
+			else {
 				alert('加入失败')
+			}
 		}
 	})
 }

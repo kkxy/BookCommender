@@ -29,7 +29,7 @@
 					   	<c:if test="${! empty user}">
 						    <c:choose>
 								<c:when test="${!buy}">
-								    <button type="button" class="btn btn-primary" onclick="putwishcart(${book.id})">加入心愿单</button>
+								    <button id="buybtn_${book.id}" type="button" class="btn btn-primary" onclick="putwishcart(${book.id})">加入心愿单</button>
 								</c:when>
 								<c:otherwise>
 									<button type="button" class="btn btn-primary" disabled="disabled">已加入心愿单</button>

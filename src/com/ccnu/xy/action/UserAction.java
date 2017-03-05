@@ -1,11 +1,13 @@
 package com.ccnu.xy.action;
 
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.ccnu.xy.dao.UserDao;
+import com.ccnu.xy.model.Book;
 import com.ccnu.xy.model.User;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -69,8 +71,17 @@ public class UserAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public String user_center() throws Exception {
+	public String getUserCenter() throws Exception {
+		SessionFactory sf = new Configuration().configure().buildSessionFactory();
+		Session session = sf.openSession();
+		ActionContext act = ActionContext.getContext();
 		
+		User user = (User)act.getSession().get("user");
+		List<Book> buylist = user.getBooklist();
+		
+		act.put("buylist", buylist);
+		session.close();
+		sf.close();
 		return SUCCESS;
 	}
 }

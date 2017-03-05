@@ -57,14 +57,21 @@
 							<c:forEach items="${booklist}" var="bl" varStatus="st">
 								<div class="col-md-3">
 									<div class="thumbnail">
-									    <%-- <img src="public/img/${bl.head}" alt="${bl.head}"> --%>
+										<c:choose>
+						  					<c:when test="${! empty bl.head}">
+								  				<img src="public/img/${bl.head}.jpg" style="width:100px;height:150px"/>
+						  					</c:when>
+						  					<c:otherwise>
+						  						<img src="public/img/notfound.png" style="width:100px;height:150px"/>
+						  					</c:otherwise>
+						  				</c:choose>
 									    <div class="caption">
 										    <h5>${bl.bookname}</h5>
 											    <p>作者：${bl.author}</p>
 											<c:if test="${! empty user}">
 												<c:choose>
 													<c:when test="${order[st.index] == 0}">
-													    <button type="button" class="btn btn-primary" onclick="putwishcart(${bl.id})">加入心愿单</button>
+													    <button id="buybtn_${bl.id}" type="button" class="btn btn-primary" onclick="putwishcart(${bl.id})">加入心愿单</button>
 													</c:when>
 													<c:otherwise>
 														<button type="button" class="btn btn-primary" disabled="disabled">已加入心愿单</button>

@@ -58,6 +58,7 @@ public class CartAction extends ActionSupport {
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("result", "success");
+		map.put("id", bookid);
 		
 		this.setResJson(map);
 		

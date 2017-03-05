@@ -35,10 +35,12 @@
 			</result>
 		</action>
 		<action name="logout" class="com.ccnu.xy.action.UserAction" method="logout">
-			<result name="error">/WEB-INF/content/error.jsp</result>
 			<result type="redirectAction">
 				<param name="actionName">index.action</param>
 			</result>
+		</action>
+		<action name="usercenter" class="com.ccnu.xy.action.UserAction" method="getUserCenter">
+			<result>/WEB-INF/content/user/usercenter.jsp</result>
 		</action>
 	</package>
 	
