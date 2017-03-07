@@ -85,8 +85,14 @@ public class MainAction extends ActionSupport {
 				}
 				order.add(buy);
 			}
+			
+			
+			
 			act.put("order", order);
+			
 		}
+		
+		
 		
 		session.close();
 		sf.close();

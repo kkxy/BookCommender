@@ -38,7 +38,7 @@
 		</nav>
 	
 		<div class="row">
-			<img src="public/img/图书馆.jpg" />
+			<img src="public/img/library.jpg" />
 		</div>
 		<div class="row">
 			<div class="col-md-3">

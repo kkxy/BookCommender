@@ -20,7 +20,7 @@ public class BookStat {
 	@GenericGenerator(name="foreignKey", strategy="foreign", parameters=@Parameter(name="property", value="book"))
 	@GeneratedValue(generator="foreignKey", strategy=GenerationType.AUTO)
 	private int bsid;
-	private int count;
+	private int count;//书被借阅的次数
 	
 	@OneToOne(targetEntity=Book.class, cascade={CascadeType.ALL}, mappedBy="bookstat")
 	@PrimaryKeyJoinColumn(name="id", referencedColumnName="id")

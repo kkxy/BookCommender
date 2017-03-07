@@ -20,15 +20,15 @@ import javax.persistence.Table;
 public class Book {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;				// id
-	private String bookname;	// ä¹¦å
-	private String author;		// ä½œè€…
-	private String press;		// å‡ºç‰ˆç¤¾
-	private String place;		// åœ°ç‚¹
-	private String head;		// å›¾ç‰‡
-	private int atype;			// ç±»åˆ«a
-	private int btype;			// ç±»åˆ«b
-	private int ctype;			// ç±»åˆ«c
+	private int id;				// ÊéµÄid
+	private String bookname;	// ÊéÃû
+	private String author;		// ×÷Õß
+	private String press;		// ³ö°æÉç
+	private String place;		// µØµã
+	private String head;		// Í¼Æ¬
+	private int atype;			// ÀàĞÍa
+	private int btype;			// ÀàĞÍb
+	private int ctype;			// ÀàĞÍc
 	
 	@ManyToMany
 	@JoinTable(
