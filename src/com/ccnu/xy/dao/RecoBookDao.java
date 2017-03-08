@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import com.ccnu.xy.model.RecoBook;
+import com.ccnu.xy.model.RecoBookBase;
 
 public class RecoBookDao {
-	public void save(Session session, RecoBook b) {
+	public void save(Session session, RecoBookBase b) {
 		session.beginTransaction();
 			
 		session.save(b);
@@ -15,7 +15,7 @@ public class RecoBookDao {
 		session.getTransaction().commit();
 	}
 	
-	public void update(Session session, RecoBook b) {
+	public void update(Session session, RecoBookBase b) {
 		session.beginTransaction();
 		
 		session.update(b);
@@ -32,11 +32,11 @@ public class RecoBookDao {
 		session.getTransaction().commit();
 	}
 	
-	public List<RecoBook> getByUserId(Session session, int id) {
+	public List<RecoBookBase> getByUserId(Session session, int id) {
 		session.beginTransaction();
 		
 		String hql = "from RecoBook rb where rb.userid:userid";
-		List<RecoBook> res = session.createQuery(hql).list();
+		List<RecoBookBase> res = session.createQuery(hql).list();
 		
 		session.getTransaction().commit();
 		return res;

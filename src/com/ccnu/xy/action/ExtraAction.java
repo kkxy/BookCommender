@@ -23,7 +23,7 @@ import com.ccnu.xy.dao.UserDao;
 import com.ccnu.xy.model.Book;
 import com.ccnu.xy.model.BookStat;
 import com.ccnu.xy.model.Dict;
-import com.ccnu.xy.model.RecoBook;
+import com.ccnu.xy.model.RecoBookBase;
 import com.ccnu.xy.model.User;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -184,7 +184,7 @@ public class ExtraAction extends ActionSupport {
 			ArrayList<ItoP> userrecolist = utop.getItemlist();
 			for (int j = 0; j < userrecolist.size(); j++) {
 				ItoP itop = userrecolist.get(j);
-				RecoBook rb = new RecoBook();
+				RecoBookBase rb = new RecoBookBase();
 				rb.setUserid(utop.getUserid());
 				rb.setBookid(itop.getItemid());
 				
