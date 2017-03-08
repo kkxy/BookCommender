@@ -196,4 +196,9 @@ public class ExtraAction extends ActionSupport {
 		sf.close();
 		return SUCCESS;
 	}
+	
+	public String getBookFile() {
+		
+		return SUCCESS;
+	}
 }
