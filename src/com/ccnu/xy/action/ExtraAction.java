@@ -1,10 +1,17 @@
 package com.ccnu.xy.action;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -32,6 +39,9 @@ public class ExtraAction extends ActionSupport {
 	private Dict dict;
 	private Book book;
 	private Map resJson;
+	private File upload;
+	private String uploadContentType;
+	private String uploadFileName;
 	
 	public Dict getDict() {
 		return dict;
@@ -55,6 +65,30 @@ public class ExtraAction extends ActionSupport {
 
 	public void setResJson(Map resJson) {
 		this.resJson = resJson;
+	}
+
+	public File getUpload() {
+		return upload;
+	}
+
+	public void setUpload(File upload) {
+		this.upload = upload;
+	}
+
+	public String getUploadContentType() {
+		return uploadContentType;
+	}
+
+	public void setUploadContentType(String uploadContentType) {
+		this.uploadContentType = uploadContentType;
+	}
+
+	public String getUploadFileName() {
+		return uploadFileName;
+	}
+
+	public void setUploadFileName(String uploadFileName) {
+		this.uploadFileName = uploadFileName;
 	}
 
 	public String getUploadClass() throws Exception {
@@ -177,8 +211,10 @@ public class ExtraAction extends ActionSupport {
 		
 		ArrayList<UtoP> res = ItemCf.runFromData(utoilist, itemnumlist);
 		
+		System.out.println("delete old data");
 		rbd.deleteAll(session);
 		
+		System.out.println("insert new data");
 		for (int i = 0; i < res.size(); i++) {
 			UtoP utop = res.get(i);
 			ArrayList<ItoP> userrecolist = utop.getItemlist();
@@ -191,14 +227,59 @@ public class ExtraAction extends ActionSupport {
 				rbd.save(session, rb);
 			}
 		}
+		System.out.println("insert complete");
 		
 		session.close();
 		sf.close();
 		return SUCCESS;
 	}
 	
-	public String getBookFile() {
+	public String getBookFile() throws Exception {
+		SessionFactory sf = new Configuration().configure().buildSessionFactory();
+		Session session = sf.openSession();
 		
+		BookDao bd = new BookDao();
+		
+		if (getUpload() != null) {
+			
+			String filename = getUploadFileName();
+			String suffix = filename.substring(filename.length() - 3);
+			if (suffix.equals("lsx") || suffix.equals("xls")) {
+				Workbook wb = null;
+				if (suffix.equals("lsx"))
+					wb = new XSSFWorkbook(getUpload());
+				else 
+					wb = new HSSFWorkbook(new FileInputStream(getUpload()));
+				
+				Sheet st = wb.getSheetAt(0);
+				for (Row r: st) {
+					Book b = new Book();
+
+					String bookname = r.getCell(0).getStringCellValue();
+					String author = r.getCell(1).getStringCellValue();
+					String press = r.getCell(2).getStringCellValue();
+					String place = r.getCell(3).getStringCellValue();
+					Integer aclass = new Integer(r.getCell(4).getStringCellValue());
+					Integer bclass = new Integer(r.getCell(5).getStringCellValue());
+					Integer cclass = new Integer(r.getCell(6).getStringCellValue());
+					
+					b.setBookname(bookname);
+					b.setAuthor(author);
+					b.setPress(press);
+					b.setPlace(place);
+					b.setAtype(aclass);
+					b.setBtype(bclass);
+					b.setCtype(cclass);
+					
+					bd.save(session, b);
+				}
+				
+				wb.close();
+			}
+		}
+		
+		session.close();
+		sf.close();
 		return SUCCESS;
 	}
 }
