@@ -8,14 +8,14 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Scanner;
 
-import com.ccnu.xy.cf.usercf.UtoI;
+import com.ccnu.xy.cf.base.UtoI;
 
 
 public class ItoI {
-	private ArrayList<UtoI> utou = new ArrayList<>(); //ÓÃ»§¹ºÂòÎïÆ·¼¯ºÏ
-	private ArrayList <ItemRelate> itoi = new ArrayList<>();//ÎïÆ·ÓëÎïÆ·Ö®¼ä¹ØÏµ¾ØÕó
-	private ArrayList <ItemNum> itnum = new ArrayList<>();//ÎïÆ·±»¹ºÂòÊıÄ¿¼¯
-	private ArrayList <UtoP> utop = new ArrayList<>();//ÓÃ»§ÍÆ¼öÁĞ±í¾ØÕó
+	private ArrayList<UtoI> utou = new ArrayList<>(); 			// purchased log of all user
+	private ArrayList <ItemRelate> itoi = new ArrayList<>();	// relate matrix of all user
+	private ArrayList <ItemNum> itnum = new ArrayList<>();		// book stat
+	private ArrayList <UtoP> utop = new ArrayList<>();			// recommended book for all user
   
 	public ArrayList<ItemNum> getItnum() {
 		return itnum;
@@ -32,6 +32,7 @@ public class ItoI {
 	public void setItoi(ArrayList<ItemRelate> itoi) {
 		this.itoi = itoi;
 	}
+	
 	public ArrayList<UtoI> getUtou() {
 		return utou;
 	}
@@ -50,7 +51,7 @@ public class ItoI {
 
 	
 	/*
-	 * ÕÒµ½ÎïÆ·iºÍÎïÆ·jÔÚÎïÆ·¹ØÏµ¾ØÕóÖĞµÄÎ»ÖÃ£¬Ã»ÓĞÕÒµ½·µ»Ø-1
+	 * ï¿½Òµï¿½ï¿½ï¿½Æ·iï¿½ï¿½ï¿½ï¿½Æ·jï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½Ğµï¿½Î»ï¿½Ã£ï¿½Ã»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½-1
 	 */
 	private Integer findlocate(Integer itemi, Integer itemj) {
 		for (int i = 0; i < itoi.size(); i++) {
@@ -59,11 +60,11 @@ public class ItoI {
 				return i;
 			}
 		}
-		return -1;//Î´ÕÒµ½ÎïÆ·Ö®¼äµÄÁªÏµ
+		return -1;//Î´ï¿½Òµï¿½ï¿½ï¿½Æ·Ö®ï¿½ï¿½ï¿½ï¿½ï¿½Ïµ
 	}
 	
 	/*
-	 * ¸üĞÂÎïÆ·iºÍÎïÆ·jµÄ¹²Í¬ÓÃ»§¹ºÂòÊı
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·iï¿½ï¿½ï¿½ï¿½Æ·jï¿½Ä¹ï¿½Í¬ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	private void setrelate(Integer itemi, Integer itemj) {
 		Integer locate = findlocate(itemi, itemj);
@@ -78,10 +79,124 @@ public class ItoI {
 			itoi.add(ir);
 		}
 	}
+	
 	/*
-	 * ¶ÁÈëÊı¾İ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·idï¿½ï¿½ï¿½ï¿½
 	 */
-	public void in(String path){
+	private void sortRelate() {
+		itoi.sort(new Comparator<ItemRelate> () {
+			public int compare(ItemRelate I1, ItemRelate I2) {
+				if (I1.getItemi() > I2.getItemi()) {
+					return 1;
+				}
+				else if (I1.getItemi() < I2.getItemi()) {
+					return -1;
+				}
+				else {
+					if (I1.getItemj() > I2.getItemj()) {
+						return 1;
+					}
+					else if (I1.getItemj() < I2.getItemj()) {
+						return -1;
+					}
+					else {
+						return 0;
+					}
+				}
+			}
+		});
+	}
+	
+	/*
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+	 */
+	private void computeSimilarity() {
+		for (int i = 0; i < itoi.size(); i++) {
+			ItemRelate ir = itoi.get(i);
+			Integer numi = 0;//ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			Integer numj = 0;//ï¿½ï¿½ï¿½ï¿½jï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			boolean findi = false;//ï¿½Òµï¿½ï¿½ï¿½Æ·iï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			boolean findj = false;//ï¿½Òµï¿½ï¿½ï¿½Æ·jï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			for (int j = 0; j < itnum.size(); j++) {
+				ItemNum itemnum = itnum.get(j); 
+				if (ir.getItemi() == itemnum.getItem()) {
+					numi = itemnum.getNum();
+					findi = true;
+				}
+				if (ir.getItemj() == itemnum.getItem()) {
+					numj = itemnum.getNum();
+					findj = true;
+				}
+				
+				if (findi && findj) {
+					double w = (1.0) * ir.getRelate() / Math.sqrt(numi * numj);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·iï¿½ï¿½ï¿½ï¿½Æ·jï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+					int locate = this.findlocate(ir.getItemi(), ir.getItemj());
+					itoi.get(locate).setSimilarity(w);
+					break;
+				}	
+			}
+		}
+	}
+	
+	
+	
+	/*
+	 * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
+	 */
+	private HashSet<Integer> getItemList() {
+		HashSet<Integer> itemlist = new HashSet<>();
+		for (int i = 0; i < utou.size(); i++) {
+			UtoI utoi = utou.get(i);
+			ArrayList<Integer> item = utoi.getItem();
+			for (int j = 0; j < item.size(); j++) {
+				itemlist.add(item.get(j));
+			}
+		}
+		return itemlist;
+	}
+	
+	/*
+	 * ï¿½ï¿½È¡ï¿½Ã»ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
+	 */
+	private ArrayList<Integer> getToBuy(UtoI utoi) {
+		ArrayList<Integer> tobuy = new ArrayList<>();
+		HashSet<Integer> allitem = this.getItemList();
+		HashSet<Integer> item = new HashSet<>();
+		for(int i = 0; i < utoi.getItem().size(); i++) {
+			item.add(utoi.getItem().get(i));
+		}
+		for (Integer i:allitem) {
+			if (!item.contains(i)) {
+				tobuy.add(i);
+			}
+		}
+		
+		return tobuy;
+	}
+	
+	/*
+	 * ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï£¬ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½È¤ï¿½ï¿½
+	 */
+	private double getInterest(Integer itemid, UtoI utoi) {
+		double interest = 0;
+		HashSet<Integer> item = new HashSet<>();
+		ArrayList<Integer> tobuy = this.getToBuy(utoi);
+		for (int i = 0; i < tobuy.size(); i++) {
+			for (int j = 0; j < itoi.size(); j++) {
+				ItemRelate itemrelate = itoi.get(j);
+				if (tobuy.get(i) == itemrelate.getItemi() && !item.contains(itemrelate.getItemj())) {
+					interest += itemrelate.getSimilarity();
+				}
+			}
+		}
+		return interest;
+	}
+	
+
+	/*
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 */
+	public void inFromPath(String path){
 		try{
 			File f = new File(path);
 			if (!f.exists()) {
@@ -115,123 +230,10 @@ public class ItoI {
 		}catch(FileNotFoundException e) {
 			e.printStackTrace();
 		}
-	}	
-	/*
-	 * °´ÕÕÎïÆ·idÅÅĞò
-	 */
-	private void sortRelate() {
-		itoi.sort(new Comparator<ItemRelate> () {
-			public int compare(ItemRelate I1, ItemRelate I2) {
-				if (I1.getItemi() > I2.getItemi()) {
-					return 1;
-				}
-				else if (I1.getItemi() < I2.getItemi()) {
-					return -1;
-				}
-				else {
-					if (I1.getItemj() > I2.getItemj()) {
-						return 1;
-					}
-					else if (I1.getItemj() < I2.getItemj()) {
-						return -1;
-					}
-					else {
-						return 0;
-					}
-				}
-			}
-		});
 	}
 	
 	/*
-	 * ¼ÆËãÁ½Á½ÎïÆ·µÄÏàËÆ¶È
-	 */
-	private void computeSimilarity() {
-		for (int i = 0; i < itoi.size(); i++) {
-			ItemRelate ir = itoi.get(i);
-			Integer numi = 0;//¹ºÂòiÎïÆ·µÄÈËÊı
-			Integer numj = 0;//¹ºÂòjÎïÆ·µÄÈËÊı
-			boolean findi = false;//ÕÒµ½ÎïÆ·iµÄ¹ºÂòÈËÊı
-			boolean findj = false;//ÕÒµ½ÎïÆ·jµÄ¹ºÂòÈËÊı
-			for (int j = 0; j < itnum.size(); j++) {
-				ItemNum itemnum = itnum.get(j); 
-				if (ir.getItemi() == itemnum.getItem()) {
-					numi = itemnum.getNum();
-					findi = true;
-				}
-				if (ir.getItemj() == itemnum.getItem()) {
-					numj = itemnum.getNum();
-					findj = true;
-				}
-				
-				if (findi && findj) {
-					double w = (1.0) * ir.getRelate() / Math.sqrt(numi * numj);//¼ÆËãÎïÆ·iºÍÎïÆ·jµÄÏàËÆ¶È
-					int locate = this.findlocate(ir.getItemi(), ir.getItemj());
-					itoi.get(locate).setSimilarity(w);
-					break;
-				}	
-			}
-		}
-	}
-	
-	
-	
-	/*
-	 * »ñÈ¡ËùÓĞÎïÆ·¼¯ºÏ
-	 */
-	private HashSet<Integer> getItemList() {
-		HashSet<Integer> itemlist = new HashSet<>();
-		for (int i = 0; i < utou.size(); i++) {
-			UtoI utoi = utou.get(i);
-			ArrayList<Integer> item = utoi.getItem();
-			for (int j = 0; j < item.size(); j++) {
-				itemlist.add(item.get(j));
-			}
-		}
-		return itemlist;
-	}
-	
-	/*
-	 * »ñÈ¡ÓÃ»§Î´¹ºÂòÎïÆ·¼¯ºÏ
-	 */
-	private ArrayList<Integer> getToBuy(UtoI utoi) {
-		ArrayList<Integer> tobuy = new ArrayList<>();
-		HashSet<Integer> allitem = this.getItemList();
-		HashSet<Integer> item = new HashSet<>();
-		for(int i = 0; i < utoi.getItem().size(); i++) {
-			item.add(utoi.getItem().get(i));
-		}
-		for (Integer i:allitem) {
-			if (!item.contains(i)) {
-				tobuy.add(i);
-			}
-		}
-		
-		return tobuy;
-	}
-	
-	/*
-	 * ¼ÆËãÎ´¹ºÂòÎïÆ·Àï£¬ÓÃ»§¶ÔÎïÆ·µÄĞËÈ¤¶È
-	 */
-	private double getInterest(Integer itemid, UtoI utoi) {
-		double interest = 0;
-		HashSet<Integer> item = new HashSet<>();
-		ArrayList<Integer> tobuy = this.getToBuy(utoi);
-		for (int i = 0; i < tobuy.size(); i++) {
-			for (int j = 0; j < itoi.size(); j++) {
-				ItemRelate itemrelate = itoi.get(j);
-				if (tobuy.get(i) == itemrelate.getItemi() && !item.contains(itemrelate.getItemj())) {
-					interest += itemrelate.getSimilarity();
-				}
-			}
-		}
-		return interest;
-	}
-	
-	
-	
-	/*
-	 * »ñµÃÓÃ»§ÍÆ¼öÎïÆ·ÁĞ±í
+	 * ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Æ·ï¿½Ğ±ï¿½
 	 */
 	public ArrayList<UtoP> result() {
 		
@@ -239,11 +241,11 @@ public class ItoI {
 		this.computeSimilarity();
 		
 		for (int i = 0; i < utou.size(); i++) {
-			//»ñÈ¡ÓÃ»§Î´¹ºÂòÎïÆ·¼¯ºÏ
+			//ï¿½ï¿½È¡ï¿½Ã»ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
 			UtoI utoi = utou.get(i);
 			ArrayList<Integer> tobuy = this.getToBuy(utoi);
 			
-			//»ñµÃÓÃ»§¿ÉÄÜ¹ºÂòÎïÆ·¼¯ºÏ
+			//ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
 			UtoP userprefer = new UtoP();
 			userprefer.setUserid(utoi.getUserid());
 			ArrayList<ItoP> itoplist = new ArrayList<>();

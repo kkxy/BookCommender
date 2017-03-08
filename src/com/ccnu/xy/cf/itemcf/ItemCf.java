@@ -2,9 +2,22 @@ package com.ccnu.xy.cf.itemcf;
 
 import java.util.ArrayList;
 
-public class Main {
-	public static void main(String arg[]) {
-		String path = "e://workspace/CF/src/xy/data.txt";
+import com.ccnu.xy.cf.base.UtoI;
+
+public class ItemCf {
+	public static ArrayList<UtoP> runFromData(ArrayList<UtoI> utoilist, ArrayList<ItemNum> itemnumlist) {
+		ItoI itoi = new ItoI();
+		
+		itoi.setUtou(utoilist);
+		itoi.setItnum(itemnumlist);
+		
+		ArrayList<UtoP> res = itoi.result();
+		
+		return res;
+	}
+	
+	public static ArrayList<UtoP> runFromPath(String path) {
+//		String path = "e://workspace/CF/src/xy/data.txt";
 		ArrayList<ItemNum> itemnum = new ArrayList<>();
 		
 		ItemNum in1 = new ItemNum();
@@ -22,9 +35,9 @@ public class Main {
 		
 		ItoI itemtoitem = new ItoI();
 		
-		//¶ÁÈëÊý¾Ý
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		itemtoitem.setItnum(itemnum);
-		itemtoitem.in(path);
+		itemtoitem.inFromPath(path);
 		
 		ArrayList<UtoP> utoplist = itemtoitem.result();
 		
@@ -32,7 +45,7 @@ public class Main {
 			UtoP utop = utoplist.get(i);
 //			if (utop.getUserid() == 4) {
 				System.out.print(utop.getUserid() + " ");
-				System.out.println("ÍÆ¼öÁÐ±íÎª£º" + utop.getItemlist().size());
+				System.out.println("ï¿½Æ¼ï¿½ï¿½Ð±ï¿½Îªï¿½ï¿½" + utop.getItemlist().size());
 				for (int j = 0; j < utop.getItemlist().size(); j++) {
 					System.out.print(utop.getItemlist().get(j).getItemid() + " ");
 				}
@@ -41,6 +54,7 @@ public class Main {
 //			}
 		}
 		
+		return utoplist;
 	}
 
 	

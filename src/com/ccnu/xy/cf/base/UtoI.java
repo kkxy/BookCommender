@@ -1,11 +1,11 @@
-package com.ccnu.xy.cf.usercf;
+package com.ccnu.xy.cf.base;
 
 import java.util.ArrayList;
 
 public class UtoI {
 	
-	private Integer userid;//用户id
-	private ArrayList<Integer> item = new ArrayList<>();//物品列表
+	private Integer userid;//锟矫伙拷id
+	private ArrayList<Integer> item = new ArrayList<>();//锟斤拷品锟叫憋拷
 	
 	public Integer getUserid() {
 		return userid;

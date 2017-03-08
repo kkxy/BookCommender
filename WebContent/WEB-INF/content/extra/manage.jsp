@@ -30,5 +30,6 @@
 	</div>
 	<script type="text/javascript" src="public/bootstrap-3.3.7/docs/assets/js/vendor/jquery.min.js" ></script>
 	<script type="text/javascript" src="public/bootstrap-3.3.7/docs/dist/js/bootstrap.js" ></script>
+	<script type="text/javascript" src="public/js/func.js"></script>
 </body>
 </html>

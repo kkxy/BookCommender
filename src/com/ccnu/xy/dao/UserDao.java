@@ -1,5 +1,7 @@
 package com.ccnu.xy.dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -75,5 +77,15 @@ public class UserDao {
 		
 		session.getTransaction().commit();
 		return u;
+	}
+	
+	public List<User> getAll(Session session) {
+		session.beginTransaction();
+		
+		String hql = "from User u";
+		List<User> ulist = session.createQuery(hql).list();
+		
+		session.getTransaction().commit();
+		return ulist;
 	}
 }

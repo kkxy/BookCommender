@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.ccnu.xy.cf.base.UtoI;
+
 public class UtoU {
 	
 	private ArrayList<UtoI> utou = new ArrayList<>(); 
@@ -83,7 +85,7 @@ public class UtoU {
 					}
 				}
 				if (co != 0) {
-					relate = (1.0) * co / Math.sqrt(itemi.size() * itemj.size());//ÓàÏÒ¶¨Àí
+					relate = (1.0) * co / Math.sqrt(itemi.size() * itemj.size());//ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
 					UserRelate ur = new UserRelate(userj.getUserid(), relate);
 					userrelate.add(ur);
 				}

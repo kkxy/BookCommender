@@ -10,10 +10,21 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.ccnu.xy.cf.base.UtoI;
+import com.ccnu.xy.cf.itemcf.ItemCf;
+import com.ccnu.xy.cf.itemcf.ItemNum;
+import com.ccnu.xy.cf.itemcf.ItoP;
+import com.ccnu.xy.cf.itemcf.UtoP;
 import com.ccnu.xy.dao.BookDao;
+import com.ccnu.xy.dao.BookStatDao;
 import com.ccnu.xy.dao.DictDao;
+import com.ccnu.xy.dao.RecoBookDao;
+import com.ccnu.xy.dao.UserDao;
 import com.ccnu.xy.model.Book;
+import com.ccnu.xy.model.BookStat;
 import com.ccnu.xy.model.Dict;
+import com.ccnu.xy.model.RecoBook;
+import com.ccnu.xy.model.User;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -122,6 +133,64 @@ public class ExtraAction extends ActionSupport {
 		BookDao bd = new BookDao();
 		
 		bd.save(session, getBook());
+		
+		session.close();
+		sf.close();
+		return SUCCESS;
+	}
+	
+	public String computeRecom() throws Exception {
+		SessionFactory sf = new Configuration().configure().buildSessionFactory();
+		Session session = sf.openSession();
+		
+		RecoBookDao rbd = new RecoBookDao();
+		UserDao ud = new UserDao();
+		BookStatDao bsd = new BookStatDao();
+		
+		ArrayList<UtoI> utoilist = new ArrayList<>();
+		ArrayList<ItemNum> itemnumlist = new ArrayList<>();
+		
+		List<User> userlist = ud.getAll(session);
+		for (int i = 0; i < userlist.size(); i++) {
+			User user = userlist.get(i);
+			UtoI utoi = new UtoI();
+			
+			utoi.setUserid(user.getId());
+			
+			List<Book> blist = user.getBooklist();
+			ArrayList<Integer> bidlist = new ArrayList<>();
+			for (int j = 0; j < blist.size(); j++)
+				bidlist.add(blist.get(j).getId());
+			
+			utoi.setItem(bidlist);
+			utoilist.add(utoi);
+		}
+		
+		List<BookStat> bslist = bsd.getAll(session);
+		for (int i = 0; i < bslist.size(); i++) {
+			BookStat bs = bslist.get(i);
+			ItemNum in = new ItemNum();
+			in.setItem(bs.getBsid());
+			in.setNum(bs.getCount());
+			itemnumlist.add(in);
+		}
+		
+		ArrayList<UtoP> res = ItemCf.runFromData(utoilist, itemnumlist);
+		
+		rbd.deleteAll(session);
+		
+		for (int i = 0; i < res.size(); i++) {
+			UtoP utop = res.get(i);
+			ArrayList<ItoP> userrecolist = utop.getItemlist();
+			for (int j = 0; j < userrecolist.size(); j++) {
+				ItoP itop = userrecolist.get(j);
+				RecoBook rb = new RecoBook();
+				rb.setUserid(utop.getUserid());
+				rb.setBookid(itop.getItemid());
+				
+				rbd.save(session, rb);
+			}
+		}
 		
 		session.close();
 		sf.close();

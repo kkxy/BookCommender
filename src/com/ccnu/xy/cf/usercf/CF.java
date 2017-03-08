@@ -3,6 +3,8 @@ package com.ccnu.xy.cf.usercf;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import com.ccnu.xy.cf.base.UtoI;
+
 class CF {
 	private ArrayList<UtoI> result = new ArrayList<>();
 	

@@ -56,3 +56,14 @@ function putwishcart(id) {
 		}
 	})
 }
+
+function computerecom() {
+	$.ajax({
+		type: 'POST',
+		url: 'computerecom',
+		dataType: 'json',
+		success: function(data) {
+			
+		}
+	})
+}

@@ -45,6 +45,20 @@
 		</action>
 	</package>
 	
+	<package name="book" extends="struts-default,json-default">
+		<action name="bookdetail" class="com.ccnu.xy.action.BookAction" method="getBookDetail">
+			<result>/WEB-INF/content/book/bookdetail.jsp</result>
+		</action>
+		<action name="wishcart" class="com.ccnu.xy.action.CartAction" method="putWishCart">
+			<result type="json">
+				<param name="root">resJson</param>
+			</result>
+		</action>
+		<action name="search" class="com.ccnu.xy.action.BookAction" method="searchBook">
+			<result>/WEB-INF/content/index.jsp</result>
+		</action>
+	</package>
+	
 	<package name="extra" extends="struts-default,json-default">
 		<action name="manage">
 			<result>/WEB-INF/content/extra/manage.jsp</result>
@@ -70,19 +84,10 @@
 				<param name="actionName">getuploadbook</param>
 			</result>
 		</action>
-	</package>
-	
-	<package name="book" extends="struts-default,json-default">
-		<action name="bookdetail" class="com.ccnu.xy.action.BookAction" method="getBookDetail">
-			<result>/WEB-INF/content/book/bookdetail.jsp</result>
-		</action>
-		<action name="wishcart" class="com.ccnu.xy.action.CartAction" method="putWishCart">
+		<action name="computerecom" class="com.ccnu.xy.action.ExtraAction" method="computeRecom">
 			<result type="json">
 				<param name="root">resJson</param>
 			</result>
-		</action>
-		<action name="search" class="com.ccnu.xy.action.BookAction" method="searchBook">
-			<result>/WEB-INF/content/index.jsp</result>
 		</action>
 	</package>
 		<!-- 
