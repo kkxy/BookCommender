@@ -11,10 +11,8 @@ import org.hibernate.cfg.Configuration;
 
 import com.ccnu.xy.dao.BookDao;
 import com.ccnu.xy.dao.BookStatDao;
-import com.ccnu.xy.dao.DictDao;
 import com.ccnu.xy.model.Book;
 import com.ccnu.xy.model.BookStat;
-import com.ccnu.xy.model.Dict;
 import com.ccnu.xy.model.User;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
