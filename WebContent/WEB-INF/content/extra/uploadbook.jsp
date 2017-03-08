@@ -63,6 +63,20 @@
 				</div>
 			</div>
 		</form>
+		
+		<hr>
+		<div class="row">
+			<div class="col-md-4 col-md-offset-2">
+				<form class="form" action="getbkfile" method="post" enctype="multipart/form-data">
+					<div class="form-group">
+						<label for="postbookfile">提交附件</label>
+						<s:file name="upload" id="postbookfile"></s:file>
+					</div>
+					<button class="btn btn-primary" type="submit">提交</button>
+				</form>
+			</div>
+		</div>
+		
 	</div>
 	<script type="text/javascript" src="public/bootstrap-3.3.7/docs/assets/js/vendor/jquery.min.js" ></script>
 	<script type="text/javascript" src="public/bootstrap-3.3.7/docs/dist/js/bootstrap.js" ></script>

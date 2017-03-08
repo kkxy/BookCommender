@@ -89,6 +89,11 @@
 				<param name="root">resJson</param>
 			</result>
 		</action>
+		<action name="getbkfile" class="com.ccnu.xy.action.ExtraAction" method="getBookFile">
+			<result type="redirectAction">
+				<param name="actionName">getuploadbook</param>
+			</result>
+		</action>
 	</package>
 		<!-- 
 		<action name="user_center" class="com.ccnu.xy.action.UserAction" method="user_center">
