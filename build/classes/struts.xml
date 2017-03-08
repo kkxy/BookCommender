@@ -18,6 +18,7 @@
 		<action name="index" class="com.ccnu.xy.action.MainAction" method="getIndex">
 			<result>/WEB-INF/content/index.jsp</result>
 		</action>
+	
 	</package>
 	
 	<package name="user" extends="struts-default">
@@ -45,6 +46,9 @@
 	</package>
 	
 	<package name="extra" extends="struts-default,json-default">
+		<action name="manage">
+			<result>/WEB-INF/content/extra/manage.jsp</result>
+		</action>
 		<action name="getuploadclass" class="com.ccnu.xy.action.ExtraAction" method="getUploadClass">
 			<result>/WEB-INF/content/extra/uploadclass.jsp</result>
 		</action>

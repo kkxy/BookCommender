@@ -26,6 +26,9 @@
 		    <div class="collapse navbar-collapse" id="bs-example">
 		      	<ul class="nav navbar-nav">
 		        	<li><a href="index">首页</a></li>
+		        	<c:if test="${! empty user }">
+		        		<li><a href="manage">管理</a></li>
+		        	</c:if>
 		      	</ul>
 		      	<c:choose>
 		      		<c:when test="${! empty user}">
