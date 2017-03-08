@@ -39,6 +39,7 @@
 		<mapping class="com.ccnu.xy.model.User"/>
 		<mapping class="com.ccnu.xy.model.Book"/>
 		<mapping class="com.ccnu.xy.model.BookStat"/>
+		<mapping class="com.ccnu.xy.model.RecoBook"/>
 		
 		<!-- 支持缓存的类 -->
 		<!-- <class-cache usage="read-write"
