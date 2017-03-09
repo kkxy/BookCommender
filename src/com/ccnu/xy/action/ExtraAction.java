@@ -30,6 +30,7 @@ import com.ccnu.xy.dao.UserDao;
 import com.ccnu.xy.model.Book;
 import com.ccnu.xy.model.BookStat;
 import com.ccnu.xy.model.Dict;
+import com.ccnu.xy.model.RecoBook;
 import com.ccnu.xy.model.RecoBookBase;
 import com.ccnu.xy.model.User;
 import com.opensymphony.xwork2.ActionContext;
@@ -209,21 +210,39 @@ public class ExtraAction extends ActionSupport {
 			itemnumlist.add(in);
 		}
 		
+//		for (int i = 0; i < utoilist.size(); i++) {
+//			UtoI utoi = utoilist.get(i);
+//			System.out.print(utoi.getUserid() + " ");
+//			for (int j = 0; j < utoi.getItem().size(); j++) {
+//				System.out.print(utoi.getItem().get(j) + " ");
+//			}
+//			System.out.println();
+//		}
+//		
+//		for (int i = 0; i < itemnumlist.size(); i++) {
+//			ItemNum itnum = itemnumlist.get(i);
+//			System.out.println(itnum.getItem() + " " + itnum.getNum());
+//		}
+		
 		ArrayList<UtoP> res = ItemCf.runFromData(utoilist, itemnumlist);
 		
 		System.out.println("delete old data");
 		rbd.deleteAll(session);
 		
-		System.out.println("insert new data");
+		System.out.println("insert new " + res.size() + " data");
 		for (int i = 0; i < res.size(); i++) {
 			UtoP utop = res.get(i);
 			ArrayList<ItoP> userrecolist = utop.getItemlist();
+//			System.out.println("userid: " + utop.getUserid() + " " + userrecolist.size());
 			for (int j = 0; j < userrecolist.size(); j++) {
 				ItoP itop = userrecolist.get(j);
-				RecoBookBase rb = new RecoBookBase();
-				rb.setUserid(utop.getUserid());
-				rb.setBookid(itop.getItemid());
+				RecoBook rb = new RecoBook();
+				RecoBookBase rbb = new RecoBookBase();
+				rbb.setUserid(utop.getUserid());
+				rbb.setBookid(itop.getItemid());
+				rb.setRecobookbase(rbb);
 				
+//				System.out.println(rb.getRecobookbase().getUserid() + " " + rb.getRecobookbase().getBookid());
 				rbd.save(session, rb);
 			}
 		}

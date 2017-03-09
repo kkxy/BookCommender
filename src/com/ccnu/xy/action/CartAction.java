@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.ccnu.xy.dao.BookDao;
+import com.ccnu.xy.dao.BookStatDao;
 import com.ccnu.xy.dao.UserDao;
 import com.ccnu.xy.model.Book;
 import com.ccnu.xy.model.User;
@@ -52,8 +53,11 @@ public class CartAction extends ActionSupport {
 		List<Book> booklist = user.getBooklist();
 		booklist.add(book);
 		
+		book.getBookStat().setCount(book.getBookStat().getCount() + 1);
+		
 		bd.update(session, book);
 		ud.update(session, user);
+		
 		
 		Map<String, Object> map = new HashMap<>();
 		

@@ -39,6 +39,14 @@ public class ItoI {
 
 	public void setUtou(ArrayList<UtoI> utou) {
 		this.utou = utou;
+		for (int k = 0; k < utou.size(); k++) {
+			ArrayList<Integer> itemlist = utou.get(k).getItem();
+			for (int i = 0; i < itemlist.size(); i++) {
+				for (int j = 0; j < itemlist.size(); j++) {
+					this.setrelate(itemlist.get(i), itemlist.get(j));
+				}
+			}
+		}
 	}
 
 	public ArrayList<UtoP> getUtop() {
@@ -51,7 +59,7 @@ public class ItoI {
 
 	
 	/*
-	 * �ҵ���Ʒi����Ʒj����Ʒ��ϵ�����е�λ�ã�û���ҵ�����-1
+	 * 锟揭碉拷锟斤拷品i锟斤拷锟斤拷品j锟斤拷锟斤拷品锟斤拷系锟斤拷锟斤拷锟叫碉拷位锟矫ｏ拷没锟斤拷锟揭碉拷锟斤拷锟斤拷-1
 	 */
 	private Integer findlocate(Integer itemi, Integer itemj) {
 		for (int i = 0; i < itoi.size(); i++) {
@@ -60,11 +68,11 @@ public class ItoI {
 				return i;
 			}
 		}
-		return -1;//δ�ҵ���Ʒ֮�����ϵ
+		return -1;//未锟揭碉拷锟斤拷品之锟斤拷锟斤拷锟较�
 	}
 	
 	/*
-	 * ������Ʒi����Ʒj�Ĺ�ͬ�û�������
+	 * 锟斤拷锟斤拷锟斤拷品i锟斤拷锟斤拷品j锟侥癸拷同锟矫伙拷锟斤拷锟斤拷锟斤拷
 	 */
 	private void setrelate(Integer itemi, Integer itemj) {
 		Integer locate = findlocate(itemi, itemj);
@@ -81,7 +89,7 @@ public class ItoI {
 	}
 	
 	/*
-	 * ������Ʒid����
+	 * 锟斤拷锟斤拷锟斤拷品id锟斤拷锟斤拷
 	 */
 	private void sortRelate() {
 		itoi.sort(new Comparator<ItemRelate> () {
@@ -108,15 +116,15 @@ public class ItoI {
 	}
 	
 	/*
-	 * ����������Ʒ�����ƶ�
+	 * 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷品锟斤拷锟斤拷锟狡讹拷
 	 */
 	private void computeSimilarity() {
 		for (int i = 0; i < itoi.size(); i++) {
 			ItemRelate ir = itoi.get(i);
-			Integer numi = 0;//����i��Ʒ������
-			Integer numj = 0;//����j��Ʒ������
-			boolean findi = false;//�ҵ���Ʒi�Ĺ�������
-			boolean findj = false;//�ҵ���Ʒj�Ĺ�������
+			Integer numi = 0;				//锟斤拷锟斤拷i锟斤拷品锟斤拷锟斤拷锟斤拷
+			Integer numj = 0;				//锟斤拷锟斤拷j锟斤拷品锟斤拷锟斤拷锟斤拷
+			boolean findi = false;			//锟揭碉拷锟斤拷品i锟侥癸拷锟斤拷锟斤拷锟斤拷
+			boolean findj = false;			//锟揭碉拷锟斤拷品j锟侥癸拷锟斤拷锟斤拷锟斤拷
 			for (int j = 0; j < itnum.size(); j++) {
 				ItemNum itemnum = itnum.get(j); 
 				if (ir.getItemi() == itemnum.getItem()) {
@@ -129,7 +137,7 @@ public class ItoI {
 				}
 				
 				if (findi && findj) {
-					double w = (1.0) * ir.getRelate() / Math.sqrt(numi * numj);//������Ʒi����Ʒj�����ƶ�
+					double w = (1.0) * ir.getRelate() / Math.sqrt(numi * numj);//锟斤拷锟斤拷锟斤拷品i锟斤拷锟斤拷品j锟斤拷锟斤拷锟狡讹拷
 					int locate = this.findlocate(ir.getItemi(), ir.getItemj());
 					itoi.get(locate).setSimilarity(w);
 					break;
@@ -141,7 +149,7 @@ public class ItoI {
 	
 	
 	/*
-	 * ��ȡ������Ʒ����
+	 * 锟斤拷取锟斤拷锟斤拷锟斤拷品锟斤拷锟斤拷
 	 */
 	private HashSet<Integer> getItemList() {
 		HashSet<Integer> itemlist = new HashSet<>();
@@ -156,7 +164,7 @@ public class ItoI {
 	}
 	
 	/*
-	 * ��ȡ�û�δ������Ʒ����
+	 * 锟斤拷取锟矫伙拷未锟斤拷锟斤拷锟斤拷品锟斤拷锟斤拷
 	 */
 	private ArrayList<Integer> getToBuy(UtoI utoi) {
 		ArrayList<Integer> tobuy = new ArrayList<>();
@@ -175,7 +183,7 @@ public class ItoI {
 	}
 	
 	/*
-	 * ����δ������Ʒ��û�����Ʒ����Ȥ��
+	 * 锟斤拷锟斤拷未锟斤拷锟斤拷锟斤拷品锟斤，锟矫伙拷锟斤拷锟斤拷品锟斤拷锟斤拷趣锟斤拷
 	 */
 	private double getInterest(Integer itemid, UtoI utoi) {
 		double interest = 0;
@@ -194,7 +202,7 @@ public class ItoI {
 	
 
 	/*
-	 * ��������
+	 * 锟斤拷锟斤拷锟斤拷锟斤拷
 	 */
 	public void inFromPath(String path){
 		try{
@@ -233,19 +241,27 @@ public class ItoI {
 	}
 	
 	/*
-	 * ����û��Ƽ���Ʒ�б�
+	 * 锟斤拷锟斤拷没锟斤拷萍锟斤拷锟狡凤拷斜锟�
 	 */
 	public ArrayList<UtoP> result() {
 		
 		this.sortRelate();
 		this.computeSimilarity();
 		
+//		System.out.println("relate matrix: " + itoi.size());
+//		for (int i = 0; i < itoi.size(); i++) {
+//			ItemRelate io = itoi.get(i);
+//			System.out.println(io.getItemi() + " " + io.getItemj() + " " + io.getRelate() + " " + io.getSimilarity());
+//		}
+		
 		for (int i = 0; i < utou.size(); i++) {
-			//��ȡ�û�δ������Ʒ����
+			//锟斤拷取锟矫伙拷未锟斤拷锟斤拷锟斤拷品锟斤拷锟斤拷
 			UtoI utoi = utou.get(i);
 			ArrayList<Integer> tobuy = this.getToBuy(utoi);
 			
-			//����û����ܹ�����Ʒ����
+//			System.out.println("to buy" + " " + tobuy.size());
+			
+			//锟斤拷锟斤拷没锟斤拷锟斤拷芄锟斤拷锟斤拷锟狡凤拷锟斤拷锟�
 			UtoP userprefer = new UtoP();
 			userprefer.setUserid(utoi.getUserid());
 			ArrayList<ItoP> itoplist = new ArrayList<>();
@@ -262,6 +278,8 @@ public class ItoI {
 			}
 			userprefer.setItemlist(itoplist);
 			userprefer.sort();
+//			System.out.println("#" + userprefer.getUserid() + " " + userprefer.getItemlist().size());
+
 			utop.add(userprefer);
 			
 		}
