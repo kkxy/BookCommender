@@ -35,7 +35,7 @@ function changeClass(type, changetype) {
 	})
 }
 
-function putwishcart(id) {
+function putwishcart(type,id) {
 	$.ajax({
 		type: 'POST',
 		url: 'wishcart',
@@ -45,13 +45,18 @@ function putwishcart(id) {
 		dataType: 'json',
 		success: function(data) {
 			if (data.result == 'success') {
-				var btn = document.getElementById("buybtn_" + data.id);
+				var btn = document.getElementById(type+"buybtn_" + data.id);
 				btn.disabled="disabled";
-				btn.innerHTML="已加入心愿单";
-				alert('加入成功');
+				btn.innerHTML="已借";
+				if (type == 'reco') {
+					var mainbtn = document.getElementById("mainbuybtn_" + data.id);
+					mainbtn.disabled="disabled";
+					mainbtn.innerHTML="已借";
+				}
+				alert('借书成功');
 			}
 			else {
-				alert('加入失败')
+				alert('借书失败');
 			}
 		}
 	})
@@ -63,7 +68,7 @@ function computerecom() {
 		url: 'computerecom',
 		dataType: 'json',
 		success: function(data) {
-			
+			alert("计算完成");
 		}
 	})
 }

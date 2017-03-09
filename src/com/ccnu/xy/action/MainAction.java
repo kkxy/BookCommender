@@ -11,8 +11,11 @@ import org.hibernate.cfg.Configuration;
 
 import com.ccnu.xy.dao.BookDao;
 import com.ccnu.xy.dao.BookStatDao;
+import com.ccnu.xy.dao.RecoBookDao;
 import com.ccnu.xy.model.Book;
 import com.ccnu.xy.model.BookStat;
+import com.ccnu.xy.model.RecoBook;
+import com.ccnu.xy.model.RecoBookBase;
 import com.ccnu.xy.model.User;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -32,6 +35,7 @@ public class MainAction extends ActionSupport {
 		
 		BookDao bd = new BookDao();
 		BookStatDao bsd = new BookStatDao();
+		RecoBookDao rbd = new RecoBookDao();
 		
 		if (classtype != null && typeid != null) {
 			List<BookStat> res = bsd.getByTypeId(session, classtype, new Integer(typeid));
@@ -72,6 +76,10 @@ public class MainAction extends ActionSupport {
 		
 		if (user != null) {
 			List<Book> buylist = user.getBooklist();
+			List<RecoBook> recobook = rbd.getByUserId(session, user.getId());
+			ArrayList<Book> recobooklist = new ArrayList<>();
+			ArrayList<Integer> recoorder = new ArrayList<>();
+			
 			for (int i = 0; i < booklist.size(); i++) {
 				int bid = booklist.get(i).getId();
 				Integer buy = 0;
@@ -84,10 +92,27 @@ public class MainAction extends ActionSupport {
 				order.add(buy);
 			}
 			
+			for (int i = 0; i < recobook.size(); i++) {
+				RecoBookBase rbb = recobook.get(i).getRecobookbase();
+				Book b = bd.getById(session, rbb.getBookid());
+				recobooklist.add(b);
+			}
 			
+			for (int i = 0; i < recobooklist.size(); i++) {
+				int bid = booklist.get(i).getId();
+				Integer buy = 0;
+				for (int j = 0; j < buylist.size(); j++) {
+					if (buylist.get(j).getId() == bid) {
+						buy = 1;
+						break;
+					}
+				}
+				recoorder.add(buy);
+			}
 			
 			act.put("order", order);
-			
+			act.put("recobooklist", recobooklist);
+			act.put("recoorder", recoorder);
 		}
 		
 		

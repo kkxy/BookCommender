@@ -13,6 +13,7 @@ public class RecoBookDao {
 		session.save(b);
 		
 		session.getTransaction().commit();
+		System.out.println("save success");
 	}
 	
 	public void update(Session session, RecoBook b) {
@@ -27,7 +28,7 @@ public class RecoBookDao {
 		session.beginTransaction();
 		
 		String hql = "delete RecoBook rb";
-		session.createQuery(hql);
+		session.createQuery(hql).executeUpdate();
 		
 		session.getTransaction().commit();
 	}
@@ -35,8 +36,8 @@ public class RecoBookDao {
 	public List<RecoBook> getByUserId(Session session, int id) {
 		session.beginTransaction();
 		
-		String hql = "from RecoBook rb where rb.userid:userid";
-		List<RecoBook> res = session.createQuery(hql).list();
+		String hql = "from RecoBook rb where rb.recobookbase.userid=:id";
+		List<RecoBook> res = session.createQuery(hql).setParameter("id", id).list();
 		
 		session.getTransaction().commit();
 		return res;
