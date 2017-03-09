@@ -1,9 +1,9 @@
-/*主页下方*/
+/*涓婚〉涓嬫柟*/
 .index-down{
 	margin-top: 100px;	
 }
 
-/*书列表下方*/
+/*涔﹀垪琛ㄤ笅鏂�*/
 .booklist-bottom{
 	margin-top: 50px;
 	margin-bottom: 20px;
@@ -12,3 +12,8 @@
 	height: 30px;
 }
 
+.text-overflow{
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

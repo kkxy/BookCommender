@@ -252,16 +252,22 @@ public class ExtraAction extends ActionSupport {
 					wb = new HSSFWorkbook(new FileInputStream(getUpload()));
 				
 				Sheet st = wb.getSheetAt(0);
+				int i = 0;
 				for (Row r: st) {
+					i++;
 					Book b = new Book();
-
+					if (r.getCell(0) == null) {
+						continue;
+					}
+					System.out.println("book:" + r.getCell(0).getStringCellValue());
+					System.out.println(r.getCell(1).getStringCellValue());
 					String bookname = r.getCell(0).getStringCellValue();
 					String author = r.getCell(1).getStringCellValue();
 					String press = r.getCell(2).getStringCellValue();
 					String place = r.getCell(3).getStringCellValue();
-					Integer aclass = new Integer(r.getCell(4).getStringCellValue());
-					Integer bclass = new Integer(r.getCell(5).getStringCellValue());
-					Integer cclass = new Integer(r.getCell(6).getStringCellValue());
+					Integer aclass = new Double(r.getCell(4).getNumericCellValue()).intValue();
+					Integer bclass = new Double(r.getCell(5).getNumericCellValue()).intValue();
+					Integer cclass = new Double(r.getCell(6).getNumericCellValue()).intValue();
 					
 					b.setBookname(bookname);
 					b.setAuthor(author);

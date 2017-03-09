@@ -24,7 +24,7 @@
 			</div>
 			
 			<!-- 主内容 -->
-			<div class="col-md-8">
+			<div class="col-md-7">
 				<!-- 搜索框 -->
 				<div class="row">
 					<form action="search" method="post" role="form" class="form" id="searchform">
@@ -55,8 +55,8 @@
 					<c:choose>
 						<c:when test="${! empty booklist}">
 							<c:forEach items="${booklist}" var="bl" varStatus="st">
-								<div class="col-md-3">
-									<div class="thumbnail">
+								<div class="col-md-4">
+									<div class="thumbnail active">
 										<c:choose>
 						  					<c:when test="${! empty bl.head}">
 								  				<img src="public/img/${bl.head}.jpg" style="width:100px;height:150px"/>
@@ -66,8 +66,8 @@
 						  					</c:otherwise>
 						  				</c:choose>
 									    <div class="caption">
-										    <h5>${bl.bookname}</h5>
-											    <p>作者：${bl.author}</p>
+										    <h5 class="text-overflow">${bl.bookname}</h5>
+											    <p class="text-overflow">作者：${bl.author}</p>
 											<c:if test="${! empty user}">
 												<c:choose>
 													<c:when test="${order[st.index] == 0}">
@@ -88,6 +88,14 @@
 							<p class="lead">没有书籍</p>
 						</c:otherwise>
 					</c:choose>
+				</div>
+			</div>
+			
+			<div class="col-md-2">
+				<div class="row">
+					<div class="col-md-12">
+						<p class="lead">你可能想借的书</p>
+					</div>
 				</div>
 			</div>
 		</div>

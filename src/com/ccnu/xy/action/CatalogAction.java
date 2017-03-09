@@ -36,7 +36,7 @@ public class CatalogAction extends ActionSupport {
 			}
 			else if (classtype.equals("c")) {
 				lasttype = "b";
-				nexttype = "d";
+				nexttype = "c";
 			}
 			
 			int last = 0;
