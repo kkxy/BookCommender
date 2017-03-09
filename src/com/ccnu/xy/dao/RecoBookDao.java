@@ -35,8 +35,8 @@ public class RecoBookDao {
 	public List<RecoBookBase> getByUserId(Session session, int id) {
 		session.beginTransaction();
 		
-		String hql = "from RecoBook rb where rb.userid:userid";
-		List<RecoBookBase> res = session.createQuery(hql).list();
+		String hql = "from RecoBook rb where rb.recobookbase.userid=:id";
+		List<RecoBookBase> res = session.createQuery(hql).setParameter("id", id).list();
 		
 		session.getTransaction().commit();
 		return res;

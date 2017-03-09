@@ -56,7 +56,7 @@
 						<c:when test="${! empty booklist}">
 							<c:forEach items="${booklist}" var="bl" varStatus="st">
 								<div class="col-md-4">
-									<div class="thumbnail active">
+									<div class="thumbnail">
 										<c:choose>
 						  					<c:when test="${! empty bl.head}">
 								  				<img src="public/img/${bl.head}.jpg" style="width:100px;height:150px"/>
@@ -92,11 +92,40 @@
 			</div>
 			
 			<div class="col-md-2">
-				<div class="row">
-					<div class="col-md-12">
-						<p class="lead">你可能想借的书</p>
-					</div>
-				</div>
+				<c:if test="${! empty user}">
+					<p class="lead">你可能想借的书</p>
+					<c:forEach items="${recobooklist}" var="rbl" varStatus="st">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="thumbnail">
+									<c:choose>
+					  					<c:when test="${! empty rbl.head}">
+							  				<img src="public/img/${rbl.head}.jpg" style="width:100px;height:150px"/>
+					  					</c:when>
+					  					<c:otherwise>
+					  						<img src="public/img/notfound.png" style="width:100px;height:150px"/>
+					  					</c:otherwise>
+					  				</c:choose>
+								    <div class="caption">
+									    <h5 class="text-overflow">${rbl.bookname}</h5>
+										    <p class="text-overflow">作者：${rbl.author}</p>
+										<c:if test="${! empty user}">
+											<c:choose>
+												<c:when test="${recoorder[st.index] == 0}">
+												    <button id="buybtn_${rbl.id}" type="button" class="btn btn-primary" onclick="putwishcart(${rbl.id})">加入心愿单</button>
+												</c:when>
+												<c:otherwise>
+													<button type="button" class="btn btn-primary" disabled="disabled">已加入心愿单</button>
+												</c:otherwise>
+											</c:choose>
+										</c:if>
+									    <a href="bookdetail?bookid=${rbl.id}" class="btn btn-primary" role="button">详情</a>
+								    </div>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</c:if>
 			</div>
 		</div>
 	</div>
