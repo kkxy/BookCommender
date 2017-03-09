@@ -20,7 +20,7 @@
 						<select id="typeid" name="dict.typeid">
 							<option value="-1"></option>
 							<c:forEach var="cl" items="${classlist}" varStatus="st">
-								<option value="${cl.itemid}">${cl.name}</option>
+								<option value="${cl.itemid}">${cl.itemid}-${cl.name}</option>
 							</c:forEach>
 						</select>
 					</div>
