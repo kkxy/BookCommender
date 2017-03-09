@@ -1,7 +1,11 @@
+function changeHref(id, href) {
+	var itemname=document.getElementById("inputitemname").value;
+	document.getElementById(id).href=href+"&itemname="+itemname;
+}
+
 function changeAction(id, action) {
 	document.getElementById(id).action=action;
 }
-
 
 function changeClass(type, changetype) {
 	var select = document.getElementById(type+"typeid");

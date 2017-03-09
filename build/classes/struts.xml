@@ -11,6 +11,9 @@
 		<action name="sidebar_leftframe" class="com.ccnu.xy.action.CatalogAction" method="getCatalog">
 			<result>/WEB-INF/content/sidebar/leftframe.jsp</result>
 		</action>
+		<action name="sidebar_rightframe" class="com.ccnu.xy.action.CatalogAction" method="getRecoBook">
+			<result>/WEB-INF/content/sidebar/rightframe.jsp</result>
+		</action>
 		<action name="sidebar_*">
 			<result>/WEB-INF/content/sidebar/{1}.jsp</result>
 		</action>
@@ -18,7 +21,6 @@
 		<action name="index" class="com.ccnu.xy.action.MainAction" method="getIndex">
 			<result>/WEB-INF/content/index.jsp</result>
 		</action>
-	
 	</package>
 	
 	<package name="user" extends="struts-default">

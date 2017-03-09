@@ -17,23 +17,16 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class BookAction extends ActionSupport {
 	
-	private String itemname;
-	
-	public String getItemname() {
-		return itemname;
-	}
-
-	public void setItemname(String itemname) {
-		this.itemname = itemname;
-	}
-
 	public String searchBook() throws Exception {
 		SessionFactory sf = new Configuration().configure().buildSessionFactory();
 		Session session = sf.openSession();
 		ActionContext act = ActionContext.getContext();
 		
 		String type = ServletActionContext.getRequest().getParameter("searchtype");
+		String itemname = ServletActionContext.getRequest().getParameter("itemname");
 		User user = (User)act.getSession().get("user");
+		
+		System.out.println(type + " " + itemname);
 		
 		BookDao bd = new BookDao();
 		

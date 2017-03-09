@@ -8,8 +8,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.ccnu.xy.dao.BookDao;
 import com.ccnu.xy.dao.DictDao;
+import com.ccnu.xy.dao.RecoBookDao;
+import com.ccnu.xy.model.Book;
 import com.ccnu.xy.model.Dict;
+import com.ccnu.xy.model.RecoBook;
+import com.ccnu.xy.model.RecoBookBase;
+import com.ccnu.xy.model.User;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -77,6 +83,46 @@ public class CatalogAction extends ActionSupport {
 			act.put("smallclass", bClass);
 			act.put("count", count);
 		}
+		
+		session.close();
+		sf.close();
+		return SUCCESS;
+	}
+	
+	public String getRecoBook() throws Exception {
+		SessionFactory sf = new Configuration().configure().buildSessionFactory();
+		Session session = sf.openSession();
+		ActionContext act = ActionContext.getContext();
+		User user = (User)act.getSession().get("user");
+		
+		RecoBookDao rbd = new RecoBookDao();
+		BookDao bd = new BookDao();
+		
+		List<RecoBook> recobook = rbd.getByUserId(session, user.getId());
+		ArrayList<Book> recobooklist = new ArrayList<>();
+		ArrayList<Integer> recoorder = new ArrayList<>();
+		
+		for (int i = 0; i < recobook.size(); i++) {
+			RecoBookBase rbb = recobook.get(i).getRecobookbase();
+			Book b = bd.getById(session, rbb.getBookid());
+			recobooklist.add(b);
+		}
+		
+		List<Book> buylist = user.getBooklist();
+		
+		for (int i = 0; i < recobooklist.size(); i++) {
+			int bid = recobooklist.get(i).getId();
+			Integer buy = 0;
+			for (int j = 0; j < buylist.size(); j++) {
+				if (buylist.get(j).getId() == bid) {
+					buy = 1;
+					break;
+				}
+			}
+			recoorder.add(buy);
+		}
+		act.put("recobooklist", recobooklist);
+		act.put("recoorder", recoorder);
 		
 		session.close();
 		sf.close();

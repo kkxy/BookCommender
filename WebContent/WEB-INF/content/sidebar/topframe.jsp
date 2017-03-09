@@ -33,15 +33,15 @@
 		      	<c:choose>
 		      		<c:when test="${! empty user}">
 			     		<ul class="nav navbar-nav navbar-right">
-			        		<li><a href="usercenter"><button type="button" class="btn btn-primary btn-md">${user.loginname}</button></a></li>
-			        		<li><a href="logout"><button type="button" class="btn btn-primary btn-md">登出</button></a></li>
+			        		<li><a href="usercenter">${user.loginname}</a></li>
+			        		<li><a href="logout">登出</a></li>
 			        		<!-- <li><a href="wishcart"><button type="button" class="btn btn-primary btn-md">心愿单</button></a></li> -->
 						</ul>
 		      		</c:when>
 		      		<c:otherwise>
 						<ul class="nav navbar-nav navbar-right">
-			        		<li><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#loginmodal">登录</button></li>
-			        		<li><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#registermodal">注册帐号</button></li>
+			        		<li><a role="button" type="button" data-toggle="modal" data-target="#loginmodal">登录</a></li>
+			        		<li><a role="button" type="button" data-toggle="modal" data-target="#registermodal">注册帐号</a></li>
 						</ul>
 		      		</c:otherwise>
 		      	</c:choose>

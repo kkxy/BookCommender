@@ -76,7 +76,14 @@
 				</form>
 			</div>
 		</div>
-		
+		<hr>
+		<div class="row">
+			<div class="col-md-4 col-md-offset-2">
+				<a href="manage">
+					<button type="button" class="btn btn-primary">返回管理页</button>
+				</a>
+			</div>
+		</div>
 	</div>
 	<script type="text/javascript" src="public/bootstrap-3.3.7/docs/assets/js/vendor/jquery.min.js" ></script>
 	<script type="text/javascript" src="public/bootstrap-3.3.7/docs/dist/js/bootstrap.js" ></script>

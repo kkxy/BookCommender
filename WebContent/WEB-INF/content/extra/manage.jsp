@@ -13,7 +13,7 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-3 col-md-offset-1">
+			<div class="col-md-3">
 				<a href="getuploadclass">
 					<button class="btn btn-primary">上传字典</button>
 				</a>
@@ -25,6 +25,11 @@
 			</div>
 			<div class="col-md-3">
 				<button class="btn btn-primary" id="recomm" onclick="computerecom()">推荐书籍</button>
+			</div>
+			<div class="col-md-3">
+				<a href="index">
+					<button class="btn btn-primary">返回首页</button>
+				</a>
 			</div>
 		</div>
 	</div>
